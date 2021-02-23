@@ -1,5 +1,6 @@
 from selenium import webdriver
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from discogs.models import Release
 
 
 class FunctionalTest(StaticLiveServerTestCase):

@@ -6,15 +6,12 @@
   <h1>Discography</h1>
 
     <table id="discog_table">
-        <tr>
-            <th>Value</th>
-        </tr>
-        <tr>
-            <td>Value</td>
-        </tr>
-        <tr>
-            <td>Value</td>
-        </tr>
-
+        {% for release in releases %}
+            <tr>
+                <td>{{ release.title }}</td>
+                <td>{{ release.info }}</td>
+                <td>{{ release.release_date }}</td>
+            </tr>
+        {% endfor %}
     </table>
 {% endblock content %}
