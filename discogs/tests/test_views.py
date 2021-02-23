@@ -1,4 +1,5 @@
 from django.test import TestCase
+from ..models import Release
 
 class HomePageTest(TestCase):
 
@@ -12,3 +13,4 @@ class DiscogsPageTest(TestCase):
     def test_discogs_uses_correct_template(self):
         response = self.client.get('/discog/')
         self.assertTemplateUsed(response,'discogs/discography.html')
+
