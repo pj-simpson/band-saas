@@ -19,3 +19,15 @@ class DiscogsPageTest(TestCase):
         response = self.client.get('/discog/')
         self.assertEqual(response.context['releases'][0], release1)
 
+    def test_release_page_uses_correct_template(self):
+        release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-02-01')
+        response = self.client.get('/discog/1/')
+        self.assertTemplateUsed(response,'discogs/release.html')
+
+    def test_release_page_fetches_correct_release(self):
+        release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-02-01')
+        release2 = Release.objects.create(title="a second", info="rah rah rah", release_date='2022-02-01')
+        response = self.client.get('/discog/1/')
+        self.assertEqual(response.context['release'], release1)
+        self.assertNotEqual(response.context['release'], release2)
+

@@ -14,6 +14,7 @@
                 <th scope="col">Title</th>
                 <th scope="col">Info</th>
                 <th scope="col">Release Date</th>
+                <th scope=""></th>
             </tr>
         </thead>
         {% for release in releases %}
@@ -21,6 +22,7 @@
                 <td>{{ release.title }}</td>
                 <td>{{ release.info }}</td>
                 <td>{{ release.release_date }}</td>
+                <td><a href="{% url 'release_page' release.id %}">More info</a></td>
             </tr>
         {% endfor %}
     </table>
