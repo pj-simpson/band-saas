@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from django.test import TestCase
 from django.core.exceptions import ValidationError
 from ..models import Release
@@ -33,5 +34,20 @@ class ReleaseModelTest(TestCase):
     def test_can_save_blank_info(self):
         release1 = Release.objects.create(title="a new title",info="",release_date='2020-02-01')
         self.assertEqual(release1,Release.objects.all()[0])
+
+    def test_release_slug_is_created_correctly(self):
+        release1 = Release.objects.create(title="a new title",info="blah",release_date='2020-02-01')
+        self.assertEqual(release1.slug,'a-new-title')
+
+    def test_release_slug_unique(self):
+        release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01')
+        with self.assertRaises(IntegrityError):
+            release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-03-01')
+            release1.full_clean()
+
+    def test_get_absolute_url(self):
+        release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01')
+        self.assertEqual(release1.get_absolute_url(),f'/discog/{release1.slug}/')
+
 
 
