@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'discogs',
+    'shop',
 ]
 
 AUTH_USER_MODEL = 'discogs.CustomUser'

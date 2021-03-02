@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+
+{% block title %}Shop{% endblock title %}
+
+{% block content %}
+
+
+    <!-- Release Cards Start -->
+
+
+
+    <div class="container" id="product-card-container">
+
+    {% for product in products %}
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+            </div>
+            <div class="card-footer">
+                <small class="text-muted">
+                    <a href="#">More Info...</a>
+                </small>
+            </div>
+        </div>
+
+    {% endfor %}
+
+    </div>
+
+    <!-- Release Cards End -->
+
+{% endblock content %}
