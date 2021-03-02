@@ -27,26 +27,26 @@ class TestDiscographyPage(FunctionalTest):
         product_container = self.browser.find_element_by_id('product-card-container')
         cards = product_container.find_elements_by_tag_name('h5')
         self.assertIn('Product 1',[card.text for card in cards])
-        #
-        # # The user sees a link to 'more info' regarding a release and clicks on it
-        #
-        # self.browser.find_element_by_link_text('More info').click()
-        #
-        #
-        # # The specific page for the release is loaded up and the user can see the relevant info
-        #
-        # el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        # assert el.text == "Release 1"
-        #
-        # # The user navigates back to the discogs page and clicks on the second release item from the table
-        #
-        # self.browser.find_element_by_link_text('Discog').click()
-        #
-        # el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_id('discog_table'))
-        # self.browser.find_element_by_xpath('//*[@id="discog_table"]/tbody/tr[2]/td[4]/a').click()
-        #
-        # el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        # assert el.text == "Release 2"
+
+        # The user sees a link to 'more info' regarding a release and clicks on it
+
+        self.browser.find_element_by_link_text('More info').click()
+
+
+        # The specific page for the product is loaded up and the user can see the relevant info
+
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Product 1"
+
+        # The user navigates back to the shop page and clicks on the second product item from the table
+
+        self.browser.find_element_by_link_text('Shop').click()
+
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_id('product-card-container'))
+        self.browser.find_element_by_xpath('//*[@id="product-card-container"]/div[2]/div[2]/small/a').click()
+
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Product 2"
         #
         # # are we still in the correct navbar context for discogs?
         # discogs_link_class = self.browser.find_element_by_css_selector('li.nav-item.active a')

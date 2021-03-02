@@ -32,3 +32,17 @@ class ProductModelTest(TestCase):
         with self.assertRaises(ValidationError):
             product1 = Product.objects.create(name='product1',price=10.998)
             product1.full_clean()
+
+    def test_release_slug_is_created_correctly(self):
+        product1 = Product.objects.create(name='Product 1',price=10.99)
+        self.assertEqual(product1.slug,'product-1')
+
+    def test_release_slug_unique(self):
+        product1 = Product.objects.create(name='Product 1',price=10.99)
+        with self.assertRaises(IntegrityError):
+            product1 = product1 = Product.objects.create(name='Product 1',price=10.99)
+            product1.full_clean()
+
+    def test_get_absolute_url(self):
+        product1 = Product.objects.create(name='Product 1',price=10.99)
+        self.assertEqual(product1.get_absolute_url(),f'/shop/{product1.slug}/')
