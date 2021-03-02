@@ -7,12 +7,21 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response,'home.html')
 
+    def test_home_has_correct_nav_menu_context(self):
+        response = self.client.get('/')
+        self.assertEqual(response.context['nav'], 'home')
+
+
 
 class DiscogsPageTest(TestCase):
 
     def test_discogs_uses_correct_template(self):
         response = self.client.get('/discog/')
         self.assertTemplateUsed(response,'discogs/discography.html')
+
+    def test_discog_has_correct_nav_menu_context(self):
+        response = self.client.get('/discog/')
+        self.assertEqual(response.context['nav'], 'discog')
 
     def test_discogs_fetches_release_objects(self):
         release1 = Release.objects.create(title="a new title",info="blah blah blah",release_date='2020-02-01')
@@ -23,6 +32,11 @@ class DiscogsPageTest(TestCase):
         release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-02-01')
         response = self.client.get('/discog/a-new-title/')
         self.assertTemplateUsed(response,'discogs/release.html')
+
+    def test_release_page_uses_correct_nav_menu_context(self):
+        release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-02-01')
+        response = self.client.get('/discog/a-new-title/')
+        self.assertEqual(response.context['nav'], 'discog')
 
     def test_release_page_fetches_correct_release(self):
         release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-02-01')
