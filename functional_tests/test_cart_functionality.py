@@ -38,8 +38,16 @@ class TestDiscographyPage(FunctionalTest):
         el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
         assert el.text == "Product 1"
 
-        # The user sees a button to add a product to their shopping cart, so clicks on it
+        # The user sees a quanity drop down button to add a product to their shopping cart, so selects 2 items
 
-        self.fail('extend this functional test')
+        quantity_dropdown = self.browser.find_element_by_id('id_quantity')
+        quantity_dropdown.selectByValue('2')
+
+        # Then clicks on 'Add to Basket'
+
+        self.browser.find_element_by_name('input').text('Add to basket').click()
+
 
         # The user is redirected to a page which gives a summary of their shopping cart
+
+        self.fail('extend this functional test')
