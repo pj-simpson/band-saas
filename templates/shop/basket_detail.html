@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+
+{% block title %}Basket{% endblock title %}
+
+{% block content %}
+
+  <h1>Your Shopping Basket</h1>
+
+    <!-- Basket Table Start -->
+
+    <table class="table table-bordered" id="basket_table">
+        <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+        </thead>
+
+        {% for item in basket %}
+
+            <tr>
+                <td>{% item.product.name %}</td>
+                <td>{% item.product.quantity %}</td>
+                <td>{% item.price %}</td>
+                <td>{% item.total_price %}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
+
+    <!-- Basket Table End -->
+
+
+{% endblock %}

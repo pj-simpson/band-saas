@@ -1,3 +1,5 @@
+from selenium.webdriver.support.select import Select
+
 from .base import FunctionalTest
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -40,14 +42,25 @@ class TestDiscographyPage(FunctionalTest):
 
         # The user sees a quanity drop down button to add a product to their shopping cart, so selects 2 items
 
-        quantity_dropdown = self.browser.find_element_by_id('id_quantity')
-        quantity_dropdown.selectByValue('2')
+        select = Select(self.browser.find_element_by_id('id_quantity'))
+        select.select_by_value('2')
 
         # Then clicks on 'Add to Basket'
-
-        self.browser.find_element_by_name('input').text('Add to basket').click()
+        self.browser.find_element_by_xpath('/html/body/div/form/input[2]').click()
 
 
         # The user is redirected to a page which gives a summary of their shopping cart
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Your Shopping Basket"
+
+        # a table is displayed featuring a list of the product of which we have two items of, the produt base and total price
+
+        basket_table = self.browser.find_element_by_id('basket_table')
+        rows = basket_table.find_elements_by_tag_name('td')
+        self.assertIn('Product 1', [row.text for row in rows])
+        self.assertIn('2', [row.text for row in rows])
+        self.assertIn('£ 10.99', [row.text for row in rows])
+        self.assertIn('£ 21.98', [row.text for row in rows])
+
 
         self.fail('extend this functional test')

@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TestCase, RequestFactory
 from ..cart import Cart
@@ -13,12 +15,9 @@ class CartTest(TestCase):
         middleware.process_request(self.request)
         self.request.session.save()
 
-
-
     def test_cart_initialization(self):
         cart = Cart(self.request)
         self.assertEqual(self.request.session['shopping_cart'],{})
-
 
     def test_adding_items_to_cart(self):
         product1 = Product.objects.create(name='Product 1',price=5.95)
@@ -39,8 +38,21 @@ class CartTest(TestCase):
 #     def test_removing_non_existent_items_from_cart(self):
 #         pass
 #
-#     def test_cart_iteration(self):
-#         pass
+    def test_cart_iteration(self):
+
+        product1 = Product.objects.create(name='Product 1', price=5.95)
+        product2 = Product.objects.create(name='Product 2', price=3.99)
+
+        cart = Cart(self.request)
+        cart.add(product1, 1)
+        cart.add(product2, 2)
+
+        expected = [{'quantity': 1, 'price': Decimal('5.95'), 'product': product1, 'total_price': Decimal('5.95')},{'quantity': 2, 'price': Decimal('3.99'), 'product': product2, 'total_price': Decimal('7.98')}]
+
+        for item in cart:
+            self.assertIn(item, expected)
+
+
 #
 #     def test_cart_len_method(self):
 #         pass

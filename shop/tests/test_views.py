@@ -32,3 +32,14 @@ class ShopHomeTest(TestCase):
         response = self.client.get('/shop/product-1/')
         self.assertEqual(response.context['product'], product1)
         self.assertNotEqual(response.context['product'], product2)
+
+
+class BasketDetailTest(TestCase):
+
+    def test_basket_detail_uses_correct_template(self):
+        response = self.client.get('/shop/basket/')
+        self.assertTemplateUsed(response,'shop/basket_detail.html')
+
+    def test_basket_detail_has_correct_nav_menu_context(self):
+        response = self.client.get('/shop/basket/')
+        self.assertEqual(response.context['nav'], 'shop')
