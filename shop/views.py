@@ -1,4 +1,6 @@
 from django.shortcuts import render
+
+from shop.cart import Cart
 from .models import Product
 
 def shop_home_view(request):
@@ -10,4 +12,5 @@ def product_detail_view(request,slug):
     return render(request,'shop/product_detail.html', {'nav':'shop', 'product':product})
 
 def basket_detail_view(request):
-    return render(request,'shop/basket_detail.html',{'nav':'shop'})
+    cart = Cart(request)
+    return render(request,'shop/basket_detail.html',{'nav':'shop','shopping_cart':cart})

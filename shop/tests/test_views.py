@@ -1,5 +1,9 @@
-from django.test import TestCase
+from django.contrib.sessions.middleware import SessionMiddleware
+from django.test import TestCase, RequestFactory
+
+from shop.views import basket_detail_view
 from ..models import Product
+from ..cart import Cart
 
 class ShopHomeTest(TestCase):
 
@@ -43,3 +47,7 @@ class BasketDetailTest(TestCase):
     def test_basket_detail_has_correct_nav_menu_context(self):
         response = self.client.get('/shop/basket/')
         self.assertEqual(response.context['nav'], 'shop')
+
+    def test_basket_detail_returns_cart_object(self):
+        response = self.client.get('/shop/basket/')
+        self.assertIsInstance(response.context['shopping_cart'],Cart)

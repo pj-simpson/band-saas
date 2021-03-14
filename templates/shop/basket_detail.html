@@ -18,13 +18,14 @@
             </tr>
         </thead>
 
-        {% for item in basket %}
+        {% for item in shopping_cart %}
+
 
             <tr>
-                <td>{% item.product.name %}</td>
-                <td>{% item.product.quantity %}</td>
-                <td>{% item.price %}</td>
-                <td>{% item.total_price %}</td>
+                <td>{{item.product.name }} </td>
+                <td>{{item.quantity }}/td>
+                <td>{{item.price}}</td>
+                <td>{{item.total }}</td>
             </tr>
 
         {% endfor %}
