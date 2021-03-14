@@ -1,7 +1,6 @@
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TestCase, RequestFactory
-
-from shop.views import basket_detail_view
+from shop.views import basket_detail_view, add_item_to_cart_view, remove_item_from_cart_view
 from ..models import Product
 from ..cart import Cart
 
@@ -51,3 +50,18 @@ class BasketDetailTest(TestCase):
     def test_basket_detail_returns_cart_object(self):
         response = self.client.get('/shop/basket/')
         self.assertIsInstance(response.context['shopping_cart'],Cart)
+    #
+    # def test_add_item_to_cart_adds_redirects_correctly(self):
+    #     product1 = Product.objects.create(name="product 1", price=10.50)
+    #     response = self.client.post('/shop/basket/add/1')
+    #     self.assertRedirects(response,'/shop/basket/',status_code=301,target_status_code=301)
+
+    # def test_remove_item_from_cart_adds_redirects_correctly(self):
+    #     product1 = Product.objects.create(name="product 1", price=10.50)
+    #     response = self.client.post('/shop/basket/remove/1')
+    #     self.assertRedirects(response,'/shop/basket/',status_code=301,target_status_code=301)
+
+
+
+
+

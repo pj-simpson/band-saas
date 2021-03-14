@@ -6,14 +6,10 @@
 
   <h1>{{product.name}}</h1>
 
-    <form action="{% url 'basket_detail' %}" method="post">
-    {% csrf_token %}
-        <label for="id_quantity">Quantity:</label>
+    <form action="{% url 'basket_add' product.id %}" method="post">
         <input type="submit" value="Add to basket">
-        <select name="quantity" id="id_quantity">
-            <option value="1">1</option>
-            <option value="2">2</option>
-        </select>
+        {{ item_quantity_form.as_p }}
+        {% csrf_token %}
     </form>
 
 {% endblock %}

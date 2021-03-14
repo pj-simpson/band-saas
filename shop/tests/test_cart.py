@@ -32,12 +32,22 @@ class CartTest(TestCase):
 #     def test_adding_items_to_cart_overriding_current_quantity(self):
 #         pass
 #
-#     def test_removing_items_from_cart(self):
-#         pass
-#
-#     def test_removing_non_existent_items_from_cart(self):
-#         pass
-#
+    def test_removing_items_from_cart(self):
+
+        product1 = Product.objects.create(name='Product 1', price=5.95)
+        product2 = Product.objects.create(name='Product 2', price=3.99)
+
+        cart = Cart(self.request)
+        cart.add(product1, 1)
+        cart.add(product2, 1)
+
+        cart.remove(product1)
+        for item in cart:
+            self.assertEqual(item, {'quantity': 1, 'price': Decimal('3.99'), 'product': product2, 'total_price': Decimal('3.99')})
+    #
+    # def test_removing_non_existent_items_from_cart(self):
+    #     pass
+
     def test_cart_iteration(self):
 
         product1 = Product.objects.create(name='Product 1', price=5.95)
@@ -57,8 +67,15 @@ class CartTest(TestCase):
 #     def test_cart_len_method(self):
 #         pass
 #
-#     def test_cart_total_price_method(self):
-#         pass
+    # def test_cart_total_price_method(self):
+    #
+    #     product1 = Product.objects.create(name='Product 1', price=5.95)
+    #     product2 = Product.objects.create(name='Product 2', price=15.78)
+    #     cart = Cart(self.request)
+    #     cart.add(product1, 2)
+    #     cart.add(product2, 1)
+    #
+    #     self.assertEqual(cart.total_price, 27.68)
 #
 #     def test_clearing_cart(self):
 #         pass

@@ -46,7 +46,7 @@ class TestDiscographyPage(FunctionalTest):
         select.select_by_value('2')
 
         # Then clicks on 'Add to Basket'
-        self.browser.find_element_by_xpath('/html/body/div/form/input[2]').click()
+        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
 
 
         # The user is redirected to a page which gives a summary of their shopping cart
@@ -62,5 +62,18 @@ class TestDiscographyPage(FunctionalTest):
         self.assertIn('£ 10.99', [row.text for row in rows])
         self.assertIn('£ 21.98', [row.text for row in rows])
 
+        # The user decides that now actually they dont want this product, so removes it from their basket
+
+        self.browser.find_element_by_xpath('//*[@id="basket_table"]/tbody/tr[1]/td[5]/form/input[1]').click()
+
+        # they await the page reload and see and empty table
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Your Shopping Basket"
+        empty_basket_table = self.browser.find_element_by_id('basket_table')
+        rows = empty_basket_table.find_elements_by_tag_name('td')
+        self.assertNotIn('Product 1', [row.text for row in rows])
+        self.assertNotIn('2', [row.text for row in rows])
+        self.assertNotIn('£ 10.99', [row.text for row in rows])
+        self.assertNotIn('£ 21.98', [row.text for row in rows])
 
         self.fail('extend this functional test')

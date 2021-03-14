@@ -15,6 +15,8 @@
                 <th scope="col">Quantity</th>
                 <th scope="col">Price</th>
                 <th scope="col">Total</th>
+                <th scope="col"></th>
+
             </tr>
         </thead>
 
@@ -23,9 +25,15 @@
 
             <tr>
                 <td>{{item.product.name }} </td>
-                <td>{{item.quantity }}/td>
-                <td>{{item.price}}</td>
-                <td>{{item.total }}</td>
+                <td>{{item.quantity }}</td>
+                <td>£ {{item.price}}</td>
+                <td>£ {{item.total_price }}</td>
+                <td>
+                    <form action="{% url 'basket_remove' item.product.id %}" method="post">
+                        <input type="submit" value="Remove">
+                        {% csrf_token %}
+                    </form>
+                </td>
             </tr>
 
         {% endfor %}
