@@ -1,87 +1,59 @@
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.wait import WebDriverWait
 
 from .base import FunctionalTest
-from selenium.webdriver.support.ui import WebDriverWait
 
-class TestDiscographyPage(FunctionalTest):
+class TestShoppingCart(FunctionalTest):
 
     fixtures = ['fixtures/products.json']
 
     def test_can_navigate_to_a_product_and_place_in_shopping_basket(self):
 
-        self.browser.get(self.live_server_url)
+        selenium_browser = self.browser.get(self.live_server_url)
 
         # The user can see that they are on the home page because the nav link with 'Home' is active
-        home_link_class = self.browser.find_element_by_css_selector('li.nav-item.active a')
-        self.assertEqual(home_link_class.text,'Home')
+        self.confirm_homepage()
 
         # The user find the shop nav link and clicks
-
-        self.browser.find_element_by_link_text('Shop').click()
-
-        # A page is loaded up which looks to be a shop, because the active nav link is now, Shop
-
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_css_selector('li.nav-item.active a'))
-        assert el.text == "Shop"
+        self.navigate_to_shop()
 
         # The user can clearly see that there are products
 
         product_container = self.browser.find_element_by_id('product-card-container')
         cards = product_container.find_elements_by_tag_name('h5')
-        self.assertIn('Product 1',[card.text for card in cards])
+        self.assertIn('Product 1', [card.text for card in cards])
 
         # The user sees a link to 'more info' regarding a release and clicks on it
 
         self.browser.find_element_by_link_text('More info').click()
 
-
         # The specific page for the product is loaded up and the user can see the relevant info
 
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        assert el.text == "Product 1"
+        product_header = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        self.assertEqual(product_header.text,"Product 1")
 
         # The user sees a quanity drop down button to add a product to their shopping cart, so selects 2 items
 
-        select = Select(self.browser.find_element_by_id('id_quantity'))
-        select.select_by_value('2')
-
-        # Then clicks on 'Add to Basket'
-        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
-
+        self.select_quantity_dropdown_add_to_basket('2','id_quantity')
 
         # The user is redirected to a page which gives a summary of their shopping cart
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        assert el.text == "Your Shopping Basket"
+        self.confirm_element_after_navigation('h1','Your Shopping Basket')
 
         # a table is displayed featuring a list of the product of which we have two items of, the produt base and total price
 
-        basket_table = self.browser.find_element_by_id('basket_table')
-        rows = basket_table.find_elements_by_tag_name('td')
-        self.assertIn('Product 1', [row.text for row in rows])
-        self.assertIn('2', [row.text for row in rows])
-        self.assertIn('£ 10.99', [row.text for row in rows])
-        self.assertIn('£ 21.98', [row.text for row in rows])
+        self.table_checker('basket_table',('Product 1','2','£ 10.99','£ 21.98'),True)
 
         # The user decides that now actually they dont want this product, so removes it from their basket
 
         self.browser.find_element_by_xpath('//*[@id="basket_table"]/tbody/tr[1]/td[5]/form/input[1]').click()
 
         # they await the page reload and see and empty table
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        assert el.text == "Your Shopping Basket"
-        empty_basket_table = self.browser.find_element_by_id('basket_table')
-        rows = empty_basket_table.find_elements_by_tag_name('td')
-        self.assertNotIn('Product 1', [row.text for row in rows])
-        self.assertNotIn('2', [row.text for row in rows])
-        self.assertNotIn('£ 10.99', [row.text for row in rows])
-        self.assertNotIn('£ 21.98', [row.text for row in rows])
+        self.confirm_element_after_navigation('h1','Your Shopping Basket')
+        self.table_checker('basket_table',('Product 1','2','£ 10.99','£ 21.98'),False)
 
         # The user navigates back to products.
 
-        self.browser.find_element_by_link_text('Shop').click()
-        el = WebDriverWait(self.browser, timeout=4).until(
-            lambda d: d.find_element_by_css_selector('li.nav-item.active a'))
-        assert el.text == "Shop"
+        self.navigate_to_shop()
 
         # The user can clearly see that there are products
 
@@ -89,27 +61,18 @@ class TestDiscographyPage(FunctionalTest):
 
         # they put 2 of product 1 in their basket
 
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        assert el.text == "Product 1"
-        select = Select(self.browser.find_element_by_id('id_quantity'))
-        select.select_by_value('2')
-        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
+        self.confirm_element_after_navigation('h1','Product 1')
+        self.select_quantity_dropdown_add_to_basket('2','id_quantity')
+
 
         # they again navigate back to products
 
-        self.browser.find_element_by_link_text('Shop').click()
-        el = WebDriverWait(self.browser, timeout=4).until(
-            lambda d: d.find_element_by_css_selector('li.nav-item.active a'))
-        assert el.text == "Shop"
+        self.navigate_to_shop()
 
         # the put one of product 2 in their basket
         self.browser.find_element_by_xpath('//*[@id="product-card-container"]/div[2]/div[2]/small/a').click()
-
-        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
-        assert el.text == "Product 2"
-        select = Select(self.browser.find_element_by_id('id_quantity'))
-        select.select_by_value('1')
-        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
+        self.confirm_element_after_navigation('h1','Product 2')
+        self.select_quantity_dropdown_add_to_basket('1', 'id_quantity')
 
         # they are able to see the total price of the basket accurately reflected on the page.
 
@@ -118,5 +81,6 @@ class TestDiscographyPage(FunctionalTest):
         rows = basket_table_footer.find_elements_by_tag_name('td')
         self.assertIn('£ 27.93', [row.text for row in rows])
 
-        self.fail('extend this functional test')
-        self.fail('move to a page model test')
+        self.fail('extend this functional test!')
+
+
