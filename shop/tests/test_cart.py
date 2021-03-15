@@ -67,15 +67,15 @@ class CartTest(TestCase):
 #     def test_cart_len_method(self):
 #         pass
 #
-    # def test_cart_total_price_method(self):
-    #
-    #     product1 = Product.objects.create(name='Product 1', price=5.95)
-    #     product2 = Product.objects.create(name='Product 2', price=15.78)
-    #     cart = Cart(self.request)
-    #     cart.add(product1, 2)
-    #     cart.add(product2, 1)
-    #
-    #     self.assertEqual(cart.total_price, 27.68)
+    def test_cart_total_price_method(self):
+
+        product1 = Product.objects.create(name='Product 1', price=5.95)
+        product2 = Product.objects.create(name='Product 2', price=15.78)
+        cart = Cart(self.request)
+        cart.add(product1, 2)
+        cart.add(product2, 1)
+
+        self.assertEqual(cart.total_price(), Decimal('27.68'))
 #
 #     def test_clearing_cart(self):
 #         pass

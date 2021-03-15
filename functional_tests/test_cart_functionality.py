@@ -76,4 +76,47 @@ class TestDiscographyPage(FunctionalTest):
         self.assertNotIn('£ 10.99', [row.text for row in rows])
         self.assertNotIn('£ 21.98', [row.text for row in rows])
 
+        # The user navigates back to products.
+
+        self.browser.find_element_by_link_text('Shop').click()
+        el = WebDriverWait(self.browser, timeout=4).until(
+            lambda d: d.find_element_by_css_selector('li.nav-item.active a'))
+        assert el.text == "Shop"
+
+        # The user can clearly see that there are products
+
+        self.browser.find_element_by_xpath('//*[@id="product-card-container"]/div[1]/div[2]/small/a').click()
+
+        # they put 2 of product 1 in their basket
+
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Product 1"
+        select = Select(self.browser.find_element_by_id('id_quantity'))
+        select.select_by_value('2')
+        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
+
+        # they again navigate back to products
+
+        self.browser.find_element_by_link_text('Shop').click()
+        el = WebDriverWait(self.browser, timeout=4).until(
+            lambda d: d.find_element_by_css_selector('li.nav-item.active a'))
+        assert el.text == "Shop"
+
+        # the put one of product 2 in their basket
+        self.browser.find_element_by_xpath('//*[@id="product-card-container"]/div[2]/div[2]/small/a').click()
+
+        el = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name("h1"))
+        assert el.text == "Product 2"
+        select = Select(self.browser.find_element_by_id('id_quantity'))
+        select.select_by_value('1')
+        self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
+
+        # they are able to see the total price of the basket accurately reflected on the page.
+
+        basket_table_footer = WebDriverWait(self.browser, timeout=4).until(
+            lambda d: d.find_element_by_id('basket-table-footer'))
+        rows = basket_table_footer.find_elements_by_tag_name('td')
+        self.assertIn('£ 27.93', [row.text for row in rows])
+
         self.fail('extend this functional test')
+        self.fail('move to a page model test')

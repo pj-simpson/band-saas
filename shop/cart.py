@@ -53,3 +53,6 @@ class Cart(object):
         if product_id in self.cart:
             del self.cart[product_id]
             self.save()
+
+    def total_price(self):
+        return sum(Decimal(item['price'])*item['quantity'] for item in self.cart.values())
