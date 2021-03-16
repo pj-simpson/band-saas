@@ -17,6 +17,9 @@ def product_detail_view(request,slug):
 
 def basket_detail_view(request):
     cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = ItemQuantityForm(initial={'quantity': item['quantity'],
+                                                                   'override': True})
     return render(request,'shop/basket_detail.html',{'nav':'shop','shopping_cart':cart})
 
 @require_POST
@@ -26,7 +29,7 @@ def add_item_to_cart_view(request,product_id):
     form = ItemQuantityForm(request.POST)
     if form.is_valid():
         cd = form.cleaned_data
-        cart.add(product=product,quantity=cd['quantity'])
+        cart.add(product=product,quantity=cd['quantity'],override_quantity=cd['override'])
     return redirect('basket_detail')
 
 @require_POST

@@ -50,6 +50,11 @@ class BasketDetailTest(TestCase):
         response = self.client.get('/shop/basket/')
         self.assertIsInstance(response.context['shopping_cart'],Cart)
 
+    def test_basket_detail_returns_cart_object(self):
+        response = self.client.get('/shop/basket/')
+        self.assertIsInstance(response.context['shopping_cart'], Cart)
+
+
     def test_add_item_to_cart_adds_redirects_correctly(self):
         product1 = Product.objects.create(name="product 1", price=10.50)
         response = self.client.post('/shop/basket/add/1/',data={'quantity':1})
@@ -60,6 +65,9 @@ class BasketDetailTest(TestCase):
         response = self.client.post('/shop/basket/add/1/', data={'quantity': 1})
         response_2 = self.client.post('/shop/basket/remove/1/')
         self.assertRedirects(response,'/shop/basket/')
+
+    # TO DO we need to test that the cart detail view returns the correct form for each item.
+
 
 
 

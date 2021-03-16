@@ -41,7 +41,12 @@ class TestShoppingCart(FunctionalTest):
 
         # a table is displayed featuring a list of the product of which we have two items of, the produt base and total price
 
-        self.table_checker('basket_table',('Product 1','2','£ 10.99','£ 21.98'),True)
+        self.table_checker('basket_table',('Product 1','£ 10.99','£ 21.98'),True)
+
+        # there is a quantity dropdown which is selected at the correct quantity
+        self.check_quantity_already_picked('2')
+
+
 
         # The user decides that now actually they dont want this product, so removes it from their basket
 
@@ -49,7 +54,7 @@ class TestShoppingCart(FunctionalTest):
 
         # they await the page reload and see and empty table
         self.confirm_element_after_navigation('h1','Your Shopping Basket')
-        self.table_checker('basket_table',('Product 1','2','£ 10.99','£ 21.98'),False)
+        self.table_checker('basket_table',('Product 1','£ 10.99','£ 21.98'),False)
 
         # The user navigates back to products.
 
@@ -73,6 +78,9 @@ class TestShoppingCart(FunctionalTest):
         self.browser.find_element_by_xpath('//*[@id="product-card-container"]/div[2]/div[2]/small/a').click()
         self.confirm_element_after_navigation('h1','Product 2')
         self.select_quantity_dropdown_add_to_basket('1', 'id_quantity')
+        self.check_quantity_already_picked('1')
+
+
 
         # they are able to see the total price of the basket accurately reflected on the page.
 
@@ -81,6 +89,19 @@ class TestShoppingCart(FunctionalTest):
         rows = basket_table_footer.find_elements_by_tag_name('td')
         self.assertIn('£ 27.93', [row.text for row in rows])
 
-        self.fail('extend this functional test!')
 
+        # the user sees that they can adjust the quantity of product 2, so selects two
+
+        inline_quantity_select = Select(self.browser.find_element_by_xpath('/html/body/div/table/tbody/tr[2]/td[2]/form/select'))
+        inline_quantity_select.select_by_value('2')
+        self.browser.find_element_by_xpath('/html/body/div/table/tbody/tr[2]/td[2]/form/input[2]').click()
+
+        # the basket reloads and we see the correct amounts
+
+        basket_table_footer = WebDriverWait(self.browser, timeout=4).until(
+            lambda d: d.find_element_by_id('basket-table-footer'))
+        rows = basket_table_footer.find_elements_by_tag_name('td')
+        self.assertIn('£ 33.88', [row.text for row in rows])
+
+        self.fail('extend this functional test')
 

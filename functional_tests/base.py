@@ -60,5 +60,8 @@ class FunctionalTest(StaticLiveServerTestCase):
             for item in value_array:
                 self.assertNotIn(item,[row.text for row in rows])
 
+    def check_quantity_already_picked(self,value):
+        quantity_selection =self.browser.find_element_by_xpath(f'//*[@id="id_quantity"]/option[{value}]')
+        self.assertEqual(quantity_selection.text,value)
 
 

@@ -25,7 +25,14 @@
 
             <tr>
                 <td>{{item.product.name }} </td>
-                <td>{{item.quantity }}</td>
+                <td>
+                    <form action="{% url 'basket_add' item.product.id %}" method="post">
+                        {{ item.update_quantity_form.quantity }}
+                        {{ item.update_quantity_form.override}}
+                        <input type="submit" value="Update">
+                        {% csrf_token %}
+                    </form>
+                </td>
                 <td>£ {{item.price}}</td>
                 <td>£ {{item.total_price }}</td>
                 <td>

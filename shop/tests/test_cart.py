@@ -28,9 +28,13 @@ class CartTest(TestCase):
 #
 #     def test_adding_more_items_to_cart_of_already_present_product(self):
 #         pass
+
+
 #
 #     def test_adding_items_to_cart_overriding_current_quantity(self):
 #         pass
+    # TO DO Add handler for the override boolean in the cart's add method. IF we are overriding, we overwrite the
+    #     product quantity. If not, we increment it
 #
     def test_removing_items_from_cart(self):
 
