@@ -38,3 +38,5 @@ def remove_item_from_cart_view(request,product_id):
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)
     return redirect('basket_detail')
+
+

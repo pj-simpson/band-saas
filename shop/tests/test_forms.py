@@ -16,4 +16,6 @@ class ItemQuantityFormTest(TestCase):
         form = ItemQuantityForm(data={'quantity':1})
         self.assertTrue(form.is_valid())
 
-    # TO DO we need to test that the form has a hidden override field and that the initial state of that field is false
+    def test_form_has_hidden_field(self):
+        form = ItemQuantityForm()
+        self.assertEqual(1,len(form.hidden_fields()))
