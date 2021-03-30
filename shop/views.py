@@ -39,4 +39,7 @@ def remove_item_from_cart_view(request,product_id):
     cart.remove(product)
     return redirect('basket_detail')
 
+def order_form_view(request):
+    return render(request,'shop/order_form.html',{'nav':'shop'})
+
 

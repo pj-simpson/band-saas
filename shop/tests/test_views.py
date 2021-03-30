@@ -72,7 +72,15 @@ class BasketDetailTest(TestCase):
         self.assertRedirects(response,'/shop/basket/')
 
 
+class OrderFormTest(TestCase):
 
+    def test_order_form_uses_correct_template(self):
+        response = self.client.get('/shop/orderform/')
+        self.assertTemplateUsed(response,'shop/order_form.html')
+
+    def test_basket_detail_has_correct_nav_menu_context(self):
+        response = self.client.get('/shop/orderform/')
+        self.assertEqual(response.context['nav'], 'shop')
 
 
 

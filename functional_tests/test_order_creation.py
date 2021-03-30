@@ -48,9 +48,27 @@ class TestCreatingAnOrder(FunctionalTest):
 
         # the user can see that there is a link to check out and clicks on it
 
-        # a form is displayed
+        checkout_link = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_id('checkout-link'))
+        checkout_link.click()
+
+        # a checkout page is displayed and a form is clear to see
+        self.confirm_element_after_navigation('h1', 'Checkout')
+        checkout_link = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_id('order-form'))
 
         # the user fills in the form with their details and hits submit
+        first_name = self.browser.find_element_by_id("id_first_name")
+        last_name = self.browser.find_element_by_id("id_last_name")
+        email = self.browser.find_element_by_id("id_email")
+        address = self.browser.find_element_by_id("id_address")
+        postal_code = self.browser.find_element_by_id("id_postal_code")
+        city = self.browser.find_element_by_id("id_city")
+
+        first_name.send_keys('Peter')
+        last_name.send_keys('Simpson')
+        email.send_keys('peter@example.com')
+        address.send_keys('7 a house, road road')
+        postal_code.send_keys('E5 6YY')
+        city.send_keys('London')
 
         # the form is submitted correctly and a page displaying their order number UUID shows
 
