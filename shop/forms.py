@@ -11,3 +11,12 @@ class ItemQuantityForm(forms.Form):
     override = forms.BooleanField(required=False,
                                   initial=False,
                                   widget=forms.HiddenInput)
+
+class OrderForm(forms.Form):
+
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    email = forms.CharField()
+    address= forms.CharField()
+    postal_code = forms.CharField()
+    city = forms.CharField()

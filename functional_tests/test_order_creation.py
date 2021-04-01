@@ -71,5 +71,7 @@ class TestCreatingAnOrder(FunctionalTest):
         city.send_keys('London')
 
         # the form is submitted correctly and a page displaying their order number UUID shows
+        self.browser.find_element_by_xpath('//*[@id="order-form"]/p[7]/input').click()
+        self.confirm_element_after_navigation('h1', 'Your Order Was Successful')
 
         self.fail('extend this functional test')

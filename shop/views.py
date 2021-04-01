@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 
 from shop.cart import Cart
-from shop.forms import ItemQuantityForm
+from shop.forms import ItemQuantityForm, OrderForm
 from .models import Product
 
 def shop_home_view(request):
@@ -40,6 +40,13 @@ def remove_item_from_cart_view(request,product_id):
     return redirect('basket_detail')
 
 def order_form_view(request):
-    return render(request,'shop/order_form.html',{'nav':'shop'})
+    if request.method == 'POST':
+        return redirect('order_success')
+    else:
+        form = OrderForm()
+        return render(request,'shop/order_form.html',{'nav':'shop', 'form':form})
+
+def order_success_view(request):
+    return render(request,'shop/order_success.html',{'nav':'shop'})
 
 
