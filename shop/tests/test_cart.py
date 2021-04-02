@@ -1,5 +1,6 @@
 from decimal import Decimal
 
+from django.conf import settings
 from django.contrib.sessions.middleware import SessionMiddleware
 from django.test import TestCase, RequestFactory
 from ..cart import Cart
@@ -17,14 +18,14 @@ class CartTest(TestCase):
 
     def test_cart_initialization(self):
         cart = Cart(self.request)
-        self.assertEqual(self.request.session['shopping_cart'],{})
+        self.assertEqual(self.request.session[settings.CART_SESSION_ID],{})
 
     def test_adding_items_to_cart(self):
         product1 = Product.objects.create(name='Product 1',price=5.95)
 
         cart = Cart(self.request)
         cart.add(product1,1)
-        self.assertEqual(self.request.session['shopping_cart']['1'],{'quantity':1,'price':'5.95'})
+        self.assertEqual(self.request.session[settings.CART_SESSION_ID]['1'],{'quantity':1,'price':'5.95'})
 
     def test_removing_items_from_cart(self):
 
@@ -64,5 +65,19 @@ class CartTest(TestCase):
         cart.add(product2, 1)
 
         self.assertEqual(cart.total_price(), Decimal('27.68'))
+
+
+
+# TO DO - Find a way to test the cart clear method using a mock?
+    # def test_clear(self):
+    #
+    #     product1 = Product.objects.create(name='Product 1', price=5.95)
+    #     product2 = Product.objects.create(name='Product 2', price=15.78)
+    #     cart = Cart(self.request)
+    #     cart.add(product1, 2)
+    #     cart.add(product2, 1)
+    #
+    #     cart.clear()
+    #     self.assertEqual(cart.__dict__ ,{})
 
 

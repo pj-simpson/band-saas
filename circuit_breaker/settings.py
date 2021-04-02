@@ -134,3 +134,4 @@ STATICFILES_FINDERS = [
 ]
 
 
+CART_SESSION_ID = 'shopping_cart'

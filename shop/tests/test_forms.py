@@ -39,3 +39,17 @@ class OrderFormTest(TestCase):
         self.assertIsInstance(form.fields['address'], CharField)
         self.assertIsInstance(form.fields['postal_code'], CharField)
         self.assertIsInstance(form.fields['city'], CharField)
+
+    def test_form_valid(self):
+
+        form = OrderForm(data={'first_name':'Peter',
+                               'last_name': 'Simpson',
+                               'email':'peter@example.com',
+                               'address':'123 blah blah way',
+                               'postal_code':'e1 4rt',
+                               'city':'London'
+                               })
+
+        self.assertTrue(form.is_valid())
+        for field in form:
+            self.assertFalse(form.has_error(field))

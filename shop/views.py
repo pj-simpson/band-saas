@@ -3,7 +3,8 @@ from django.views.decorators.http import require_POST
 
 from shop.cart import Cart
 from shop.forms import ItemQuantityForm, OrderForm
-from .models import Product
+from .models import Product, OrderItem
+
 
 def shop_home_view(request):
     products = Product.objects.all()
@@ -40,13 +41,21 @@ def remove_item_from_cart_view(request,product_id):
     return redirect('basket_detail')
 
 def order_form_view(request):
+    cart = Cart(request)
     if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save()
+            for item in cart:
+                OrderItem.objects.create(order=order,product=item['product'],price=item['price'],quantity=item['quantity'])
+            cart.clear()
         return redirect('order_success')
     else:
         form = OrderForm()
         return render(request,'shop/order_form.html',{'nav':'shop', 'form':form})
 
 def order_success_view(request):
+
     return render(request,'shop/order_success.html',{'nav':'shop'})
 
 

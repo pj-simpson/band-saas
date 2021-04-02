@@ -1,11 +1,12 @@
 from decimal import Decimal
 from unittest.mock import patch
 
+from django.forms import model_to_dict
 from django.test import TestCase
 
 from shop.forms import ItemQuantityForm
 from shop.views import basket_detail_view
-from ..models import Product
+from ..models import Product, Order
 from ..cart import Cart
 
 
@@ -94,5 +95,36 @@ class OrderFormTest(TestCase):
         response = self.client.get('/shop/ordersuccess/')
         self.assertEqual(response.context['nav'], 'shop')
 
+    def test_order_form_post_success(self):
+        response = self.client.post('/shop/orderform/',
+                                    data = {'first_name':'Peter',
+                                           'last_name': 'Simpson',
+                                           'email':'peter@example.com',
+                                           'address':'123 blah blah way',
+                                           'postal_code':'e1 4rt',
+                                           'city':'London'
+                                           })
+        self.assertEqual(response.status_code,302)
 
+    def test_order_form_post_creates_new_order(self):
+
+        data = {'first_name':'Peter',
+                                           'last_name': 'Simpson',
+                                           'email':'peter@example.com',
+                                           'address':'123 blah blah way',
+                                           'postal_code':'e1 4rt',
+                                           'city':'London'
+                                           }
+        response = self.client.post('/shop/orderform/',
+                                    data = data)
+
+        order1 = model_to_dict(Order.objects.all()[0])
+        self.assertEqual(order1['first_name'],data['first_name'])
+        self.assertEqual(order1['last_name'], data['last_name'])
+        self.assertEqual(order1['email'], data['email'])
+        self.assertEqual(order1['address'], data['address'])
+        self.assertEqual(order1['postal_code'], data['postal_code'])
+        self.assertEqual(order1['city'], data['city'])
+
+    # TO DO - Create a test which ensures the associated order items are correctly created?
 
