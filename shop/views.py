@@ -49,13 +49,13 @@ def order_form_view(request):
             for item in cart:
                 OrderItem.objects.create(order=order,product=item['product'],price=item['price'],quantity=item['quantity'])
             cart.clear()
-        return redirect('order_success')
+        return redirect('payment_process')
     else:
         form = OrderForm()
         return render(request,'shop/order_form.html',{'nav':'shop', 'form':form})
 
-def order_success_view(request):
+def payment_process_view(request):
 
-    return render(request,'shop/order_success.html',{'nav':'shop'})
+    return render(request,'shop/payment_process.html',{'nav':'shop'})
 
 

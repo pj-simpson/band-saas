@@ -70,8 +70,23 @@ class TestCreatingAnOrder(FunctionalTest):
         postal_code.send_keys('E5 6YY')
         city.send_keys('London')
 
-        # the form is submitted correctly and a page displaying their order number UUID shows
-        self.browser.find_element_by_xpath('//*[@id="order-form"]/p[7]/input').click()
-        self.confirm_element_after_navigation('h1', 'Your Order Was Successful')
+        place_order_button = self.browser.find_element_by_xpath('// *[ @ id = "order-form"] / p[7] / input')
+        place_order_button.click()
+
+        # the form is submitted correctly and we are redirected to a payment form:
+        self.confirm_element_after_navigation('h1', 'Pay By Card')
+
+        number = self.browser.find_element_by_id("card-number")
+        cvv = self.browser.find_element_by_id("cvv")
+        expiration_date = self.browser.find_element_by_id("expiration-date")
+
+        number.send_keys('4111 111 111 111')
+        cvv.send_keys('123')
+        expiration_date.send_keys('12/28')
+
+        payment_button = self.browser.find_element_by_xpath('// *[ @ id = "payment"] / p[7] / input')
+
+        # the payment form is submitted correctly to braintree and we are redirected back to a success page.
+        self.confirm_element_after_navigation('h1', 'Your payment was successful')
 
         self.fail('extend this functional test')
