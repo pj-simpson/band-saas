@@ -11,6 +11,8 @@ services:
       - "8000:8000"
     depends_on:
       - selenium
+    env_file:
+      - .env
 
   selenium:
     image: selenium/standalone-chrome-debug:latest

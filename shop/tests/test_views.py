@@ -85,10 +85,10 @@ class OrderFormTest(TestCase):
 
     def test_post_order_form_redirects_correctly(self):
         response = self.client.post('/shop/orderform/')
-        self.assertRedirects(response,'/shop/payment_process/')
+        self.assertRedirects(response,'/shop/payment-process/')
 
     def test_payment_process_uses_correct_template(self):
-        response = self.client.get('/shop/payment_process/')
+        response = self.client.get('/shop/payment-process/')
         self.assertTemplateUsed(response,'shop/payment_process.html')
 
     def test_order_form_post_success(self):
@@ -123,4 +123,27 @@ class OrderFormTest(TestCase):
         self.assertEqual(order1['city'], data['city'])
 
     # TO DO - Create a test which ensures the associated order items are correctly created?
+    # TO DO - Create a test which ensures that the order passes the order to the session
 
+
+class PaymentTests(TestCase):
+
+    def test_payment_done_returns_correct_template(self):
+        response = self.client.get('/shop/payment-done/')
+        self.assertTemplateUsed(response,'shop/payment_done.html')
+
+    def test_payment_error_returns_correct_template(self):
+        response = self.client.get('/shop/payment-error/')
+        self.assertTemplateUsed(response, 'shop/payment_error.html')
+
+    def test_payment_view_generates_client_token(self):
+        # TO DO user mocks here
+        pass
+
+    def test_payment_view_success(self):
+        # TO DO use mocks here
+        pass
+
+    def test_payment_view_cancellation(self):
+        # TO DO USE MOCKS HERE
+        pass

@@ -76,9 +76,9 @@ class TestCreatingAnOrder(FunctionalTest):
         # the form is submitted correctly and we are redirected to a payment form:
         self.confirm_element_after_navigation('h1', 'Pay By Card')
 
-        number = self.browser.find_element_by_id("card-number")
-        cvv = self.browser.find_element_by_id("cvv")
-        expiration_date = self.browser.find_element_by_id("expiration-date")
+        number = self.browser.find_element_by_id("credit-card-number")
+        cvv = self.browser.find_element_by_id("cvv-autofill-field")
+        expiration_date = self.browser.find_element_by_id("expiration-month-autofill-field")
 
         number.send_keys('4111 111 111 111')
         cvv.send_keys('123')
