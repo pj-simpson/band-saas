@@ -84,7 +84,8 @@ class TestCreatingAnOrder(FunctionalTest):
         cvv.send_keys('123')
         expiration_date.send_keys('12/28')
 
-        payment_button = self.browser.find_element_by_xpath('// *[ @ id = "payment"] / p[7] / input')
+        payment_button = self.browser.find_element_by_xpath('//*[@id="payment"]/input[4]')
+        payment_button.click()
 
         # the payment form is submitted correctly to braintree and we are redirected back to a success page.
         self.confirm_element_after_navigation('h1', 'Your payment was successful')
