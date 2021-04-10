@@ -85,12 +85,17 @@ class OrderFormTest(TestCase):
         self.assertEqual(response.context['nav'], 'shop')
 
     def test_post_order_form_redirects_correctly(self):
-        response = self.client.post('/shop/orderform/')
+        response = self.client.post('/shop/orderform/',
+                                    data={'first_name': 'Peter',
+                                          'last_name': 'Simpson',
+                                          'email': 'peter@example.com',
+                                          'address': '123 blah blah way',
+                                          'postal_code': 'e1 4rt',
+                                          'city': 'London'
+                                          })
         self.assertRedirects(response,'/shop/payment-process/')
 
-    def test_payment_process_uses_correct_template(self):
-        response = self.client.get('/shop/payment-process/')
-        self.assertTemplateUsed(response,'shop/payment_process.html')
+
 
     def test_order_form_post_success(self):
         response = self.client.post('/shop/orderform/',
@@ -129,7 +134,7 @@ class OrderFormTest(TestCase):
 
 class PaymentTests(TestCase):
 
-    # Not using mocks, but using a fake! note: this is an integrated test.
+    # Not using mocks, but using a fake!
 
     def test_payment_done_returns_correct_template(self):
         response = self.client.get('/shop/payment-done/')
@@ -138,6 +143,10 @@ class PaymentTests(TestCase):
     def test_payment_error_returns_correct_template(self):
         response = self.client.get('/shop/payment-error/')
         self.assertTemplateUsed(response, 'shop/payment_error.html')
+
+    def test_payment_process_uses_correct_template(self):
+        response = self.client.get('/shop/test-payment-process/pass')
+        self.assertTemplateUsed(response,'shop/payment_process.html')
 
     @skip('this is an integrated test - it requires the braintree sandbox - run sparingly')
     def test_payment_view_generates_client_token(self):
