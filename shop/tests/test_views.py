@@ -1,6 +1,6 @@
 from decimal import Decimal
-from unittest import mock
-from unittest.mock import patch
+from unittest import mock, skip
+from unittest.mock import patch, MagicMock
 
 from django.forms import model_to_dict
 from django.test import TestCase
@@ -126,50 +126,30 @@ class OrderFormTest(TestCase):
     # TO DO - Create a test which ensures the associated order items are correctly created?
     # TO DO - Create a test which ensures that the order passes the order to the session
 
-@mock.patch('shop.views.get_object_or_404')
-@mock.patch('shop.views.gateway')
+
 class PaymentTests(TestCase):
 
-    def test_payment_done_returns_correct_template(self, mock_get_object_or_404,mock_gateway):
+    # Not using mocks, but using a fake! note: this is an integrated test.
+
+    def test_payment_done_returns_correct_template(self):
         response = self.client.get('/shop/payment-done/')
         self.assertTemplateUsed(response,'shop/payment_done.html')
 
-    def test_payment_error_returns_correct_template(self, mock_get_object_or_404,mock_gateway):
+    def test_payment_error_returns_correct_template(self):
         response = self.client.get('/shop/payment-error/')
         self.assertTemplateUsed(response, 'shop/payment_error.html')
 
-    def test_payment_view_generates_client_token(self, mock_get_object_or_404,mock_gateway):
+    @skip('this is an integrated test - it requires the braintree sandbox - run sparingly')
+    def test_payment_view_generates_client_token(self):
+        response = self.client.get('/shop/test-payment-process/pass')
+        self.assertTrue(response.context['client_token'])
 
-        order1 = Order.objects.create(first_name='Peter',
-                                      last_name='Simpson',
-                                      email='peter@example.com',
-                                      address='123 blah blah way',
-                                      postal_code='e1 4rt',
-                                      city='London')
+    @skip('this is an integrated test - it requires the braintree sandbox - run sparingly')
+    def test_payment_view_success(self):
+        response = self.client.post('/shop/test-payment-process/pass')
+        self.assertRedirects(response,'/shop/payment-done/')
 
-        mock_get_object_or_404.return_value = order1
-        mock_gateway.client_token.generate.return_value = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiYWRtaW4iLCJpYXQiOjE0MjI3Nzk2Mzh9.gzSraSYS8EXBxLN_oWnFSRgCzcmJmMjLiuyu5CSpyHI'
-
-        response = self.client.get('/shop/payment-process/')
-        self.assertTrue(mock_gateway.called_once())
-
-    # @patch('shop.views.Order')
-    # def test_payment_view_success(self, mock_get_object_or_404,mock_gateway,mock_order):
-    #
-    #     order1 = Order.objects.create(first_name='Peter',
-    #                                   last_name='Simpson',
-    #                                   email='peter@example.com',
-    #                                   address='123 blah blah way',
-    #                                   postal_code='e1 4rt',
-    #                                   city='London')
-    #
-    #     mock_get_object_or_404.return_value = order1
-    #     mock_order.get_total_cost.return_value = 5.00
-    #     mock_gateway.transaction.sale.return_value = True
-    #
-    #     response = self.client.post('/shop/payment-process/')
-    #     self.assertRedirects(response,'/shop/payment-done/')
-
-    # def test_payment_view_cancellation(self):
-    #     # TO DO USE MOCKS HERE
-    #     pass
+    @skip('this is an integrated test - it requires the braintree sandbox - run sparingly')
+    def test_payment_view_failure(self):
+        response = self.client.post('/shop/test-payment-process/fail')
+        self.assertRedirects(response,'/shop/payment-error/')

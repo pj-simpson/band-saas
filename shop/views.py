@@ -69,8 +69,7 @@ def payment_process_view(request):
     total_cost = order.get_total_cost()
 
     if request.method == 'POST':
-
-        nonce = request.POST.get('payment_method_nonce', None)
+        nonce = request.POST.get('payment_method_nonce', args='flag')
         result = gateway.transaction.sale({
             'amount': f'{total_cost:.2f}',
             'payment_method_nonce': nonce,
@@ -78,13 +77,14 @@ def payment_process_view(request):
                 'submit_for_settlement': True
             }
         })
+        print(result)
         if result.is_success:
             order.paid = True
             order.braintree_id = result.transaction.id
             order.save()
-            return redirect('payment:done')
+            return redirect('payment_done')
         else:
-            return redirect('payment:canceled')
+            return redirect('payment_error')
     else:
         client_token = gateway.client_token.generate()
 
