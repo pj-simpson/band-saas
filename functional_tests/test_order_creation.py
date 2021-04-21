@@ -1,5 +1,7 @@
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
 
 from .base import FunctionalTest
 
@@ -76,18 +78,28 @@ class TestCreatingAnOrder(FunctionalTest):
         # the form is submitted correctly and we are redirected to a payment form:
         self.confirm_element_after_navigation('h1', 'Pay By Card')
 
+        # wait long enough for the braintree iframe to load then switch in and out of each frame, in turn
+        self.browser.implicitly_wait(7);
+        self.browser.switch_to.frame(self.browser.find_element_by_name("braintree-hosted-field-number"))
         number = self.browser.find_element_by_id("credit-card-number")
-        cvv = self.browser.find_element_by_id("cvv-autofill-field")
-        expiration_date = self.browser.find_element_by_id("expiration-month-autofill-field")
+        number.send_keys('4111111111111111')
+        self.browser.switch_to_default_content()
 
-        number.send_keys('4111 111 111 111')
+        self.browser.switch_to.frame(self.browser.find_element_by_name("braintree-hosted-field-cvv"))
+        cvv = self.browser.find_element_by_id("cvv")
         cvv.send_keys('123')
-        expiration_date.send_keys('12/28')
+        self.browser.switch_to_default_content()
 
-        payment_button = self.browser.find_element_by_xpath('//*[@id="payment"]/input[4]')
+        self.browser.switch_to.frame(self.browser.find_element_by_name("braintree-hosted-field-expirationDate"))
+        expiration_date = self.browser.find_element_by_id("expiration")
+        expiration_date.send_keys('1228')
+        self.browser.switch_to_default_content()
+
+        payment_button = self.browser.find_element_by_xpath('//*[@id="payment"]/input[3]')
         payment_button.click()
 
-        # the payment form is submitted correctly to braintree and we are redirected back to a success page.
-        self.confirm_element_after_navigation('h1', 'Your payment was successful')
 
-        self.fail('extend this functional test')
+        # the payment form is submitted correctly to braintree and we are redirected back to a success page.
+        success = WebDriverWait(self.browser, timeout=10).until(lambda d: d.find_element_by_id('success-message'))
+
+
