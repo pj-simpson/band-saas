@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.flatpages',
 
     "ckeditor",
     "ckeditor_uploader",
@@ -47,6 +49,8 @@ INSTALLED_APPS = [
 ]
 
 AUTH_USER_MODEL = 'discogs.CustomUser'
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

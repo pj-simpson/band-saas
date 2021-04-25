@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 {% load static %}
+{% load flatpages %}
+{% get_flatpages as flatpages %}
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <title>{% block title %}Circuit Breaker{% endblock title %}</title>
     <link rel="stylesheet "href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet "href="{% static 'css/base.css' %}"/>
 </head>
 <body>
   <div class="container">
@@ -31,6 +35,15 @@
         <li class="nav-item {% if nav == 'shop' %}active{% endif %}">
             <a class="nav-link" href="{% url 'shop_home' %}">Shop</a>
         </li>
+
+        <!--flat pages start -->
+            {% for page in flatpages %}
+                <li class="nav-item {% if not nav %}active{% endif %}" >
+                    <a class="nav-link" href="/info{{ page.url }}">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+        <!-- flat pages end -->
+
     </ul>
   </div>
   </nav>

@@ -6,6 +6,7 @@ from django.urls import path, include
 from discogs.views import home_page_view
 
 urlpatterns = [
+    path('info/', include('django.contrib.flatpages.urls')),
     path('admin/', admin.site.urls),
     path('',home_page_view,name="home"),
     path('discog/',include("discogs.urls")),
