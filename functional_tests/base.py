@@ -36,7 +36,7 @@ class FunctionalTest(StaticLiveServerTestCase):
         self.browser.find_element_by_xpath('/html/body/div/form/input[1]').click()
 
     def confirm_element_after_navigation(self,tag,text):
-        header = WebDriverWait(self.browser, timeout=10).until(lambda d: d.find_element_by_tag_name(f"{tag}"))
+        header = WebDriverWait(self.browser, timeout=4).until(lambda d: d.find_element_by_tag_name(f"{tag}"))
         self.assertEqual(header.text,text)
 
     def confirm_nav_context(self,nav_text):

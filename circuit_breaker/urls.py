@@ -7,5 +7,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_page_view,name="home"),
     path('discog/',include("discogs.urls")),
-    path('shop/',include("shop.urls"))
+    path('shop/',include("shop.urls")),
+    path('news/',include("news.urls")),
 ]

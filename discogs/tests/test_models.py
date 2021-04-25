@@ -42,8 +42,8 @@ class ReleaseModelTest(TestCase):
     def test_release_slug_unique(self):
         release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01')
         with self.assertRaises(IntegrityError):
-            release1 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-03-01')
-            release1.full_clean()
+            release2 = Release.objects.create(title="a new title", info="blah blah blah", release_date='2020-03-01')
+            release2.full_clean()
 
     def test_get_absolute_url(self):
         release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01')
