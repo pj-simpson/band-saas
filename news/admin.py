@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import NewsItem
 
-# Register your models here.
+class NewsItemAdmin(admin.ModelAdmin):
+
+    prepopulated_fields = {'slug': ('headline',)}
+
+admin.site.register(NewsItem, NewsItemAdmin)
