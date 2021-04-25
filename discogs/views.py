@@ -5,7 +5,6 @@ def home_page_view(request):
     return render(request, "home.html",{'nav':'home'})
 
 def discog_page_view(request):
-
     releases = Release.objects.all()
     return render(request,'discogs/discography.html',{'releases':releases, 'nav':'discog'})
 
