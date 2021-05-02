@@ -1,9 +1,38 @@
 {% extends '_base.html' %}
 
+{% load thumbnail %}
+
 {% block title %}News{% endblock title %}
 
 {% block content %}
 
-  <h1>{{news_item.headline}}</h1>
+<div class="container news-item-page-container">
+
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">{{news_item.headline}}</h1>
+      </div>
+    </div>
+    <!-- new item image logic begin -->
+                        <div class="col">
+                        {% if news_item.image|is_portrait %}
+                            {% thumbnail news_item.image "200x300" as im %}
+                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail news_item.image "300x200" as im %}
+                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
+                            {% empty %}
+                                <!-- handle no image logic here -->
+                            {% endthumbnail %}
+
+                        {%  endif %}
+
+                        </div>
+        <!-- news item image logic end -->
+
+    {{ news_item.content|safe }}
+    {{ news_item.created }}
+</div>
 
 {% endblock %}

@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    <div class="container" id="basket-detail-container">
+
   <h1>Your Shopping Basket</h1>
 
     <!-- Basket Table Start -->
@@ -56,5 +58,7 @@
     <!-- Checkout link -->
 
     <a href="{% url "order_form" %}" id="checkout-link">Checkout</a>
+
+    </div>
 
 {% endblock %}

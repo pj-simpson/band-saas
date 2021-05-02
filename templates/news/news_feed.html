@@ -1,5 +1,5 @@
 {% extends '_base.html' %}
-
+{% load thumbnail %}
 {% block title %}News{% endblock title %}
 
 {% block content %}
@@ -13,14 +13,41 @@
 
     {% for item in news_items %}
 
-        <div class="card">
+        <div class="card text-white bg-dark mb-3" id="news-item-card">
             <div class="card-body">
-                <h5 class="card-title">{{ item.headline }}</h5>
+                <div class="container">
+                    <div class="row justify-content-between">
+
+                        <div class="col">
+                            <a href="{{ item.get_absolute_url }}">
+                                <h4 class="card-title">{{ item.headline }}</h4>
+                            </a>
+                        </div>
+
+                    <!-- new item thumbnail logic begin -->
+                        <div class="col">
+                        {% if item.image|is_portrait %}
+                            {% thumbnail item.image "200x300" as im %}
+                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail item.image "300x200" as im %}
+                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
+                            {% empty %}
+                                <!-- handle no image logic here -->
+                            {% endthumbnail %}
+
+                        {%  endif %}
+
+                        </div>
+                    <!-- news item thumbnail logic end -->
+                    </div>
+                </div>
             </div>
+
             <div class="card-footer">
-                <small class="text-muted">
-                    <a href="{{ item.get_absolute_url }}">{{item.summary}}</a>
-                </small>
+                <a href="{{ item.get_absolute_url }}">{{item.summary}}...</a>
+                <span class="badge badge-dark new-card-footer-timestamp">{{item.created}}</span>
             </div>
         </div>
 
