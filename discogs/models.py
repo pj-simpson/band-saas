@@ -12,6 +12,8 @@ class Release(models.Model):
     info = models.TextField()
     release_date = models.DateField(blank=False)
     slug = models.SlugField(null=True,unique=True)
+    image = models.ImageField(upload_to="discography_images/", blank=True)
+    link = models.URLField(blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
