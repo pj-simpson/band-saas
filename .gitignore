@@ -117,3 +117,7 @@ media/
 /static
 .env
 functional_tests/screendumps
+
+#no docker for digital ocean app deployment
+Dockerfile
+docker-compose.yml
