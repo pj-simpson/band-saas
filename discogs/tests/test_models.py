@@ -36,6 +36,19 @@ class ReleaseModelTest(TestCase):
         release1 = Release.objects.create(title="a new title",info="",release_date='2020-02-01',image=get_image_file(),link='https://link.com')
         self.assertEqual(release1,Release.objects.all()[0])
 
+    def test_can_save_blank_image(self):
+        release1 = Release.objects.create(title="a new title",info="",release_date='2020-02-01',link='https://link.com')
+        self.assertEqual(release1,Release.objects.all()[0])
+
+    def test_can_save_blank_link(self):
+        release1 = Release.objects.create(title="a new title",info="",release_date='2020-02-01',image=get_image_file())
+        self.assertEqual(release1,Release.objects.all()[0])
+
+    def test_cannot_save_improperly_formatted_link(self):
+        with self.assertRaises(ValidationError):
+            release1 = Release.objects.create(title="a new title",info="",release_date='2020-02-01',link='link_com')
+            release1.full_clean()
+
     def test_release_slug_is_created_correctly(self):
         release1 = Release.objects.create(title="a new title",info="blah",release_date='2020-02-01',image=get_image_file(),link='https://link.com')
         self.assertEqual(release1.slug,'a-new-title')

@@ -1,4 +1,6 @@
 {% extends '_base.html' %}
+{% load thumbnail %}
+
 
 {% block title %}Discography{% endblock title %}
 
@@ -10,18 +12,29 @@
         <table class="table table-bordered" id="discog_table">
             <thead>
                 <tr>
+                    <th scope="col">Front Cover</th>
                     <th scope="col">Title</th>
-                    <th scope="col">Info</th>
-                    <th scope="col">Release Date</th>
-                    <th scope=""></th>
+                    <th scope="col" colspan="2">Release Date</th>
                 </tr>
             </thead>
             {% for release in releases %}
                 <tr>
-                    <td>{{ release.title }}</td>
-                    <td>{{ release.info }}</td>
+                    <td>
+                        {% if release.image|is_portrait %}
+                            {% thumbnail release.image "200x300" as im %}
+                                <img class="release-thumbnail" src="{{im.url}}" alt="Portrait Release Image">
+                            {% endthumbnail %}
+                        {% else %}
+                            {% thumbnail release.image "300x200" as im %}
+                                <img class="release-thumbnail" src="{{im.url}}" alt="Landscape Release Image">
+                            {% empty %}
+                                <!-- handle no image logic here -->
+                            {% endthumbnail %}
+                        {%  endif %}
+                    </td>
+                    <td><a href="{{ release.get_absolute_url }}">{{ release.title }}</a></td>
                     <td>{{ release.release_date }}</td>
-                    <td><a href="{{ release.get_absolute_url }}">More info</a></td>
+                    <td><a href="{{ release.get_absolute_url }}">More info...</a></td>
                 </tr>
             {% endfor %}
         </table>

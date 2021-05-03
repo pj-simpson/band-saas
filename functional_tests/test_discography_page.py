@@ -27,7 +27,7 @@ class TestDiscographyPage(FunctionalTest):
 
         # The user sees a link to 'more info' regarding a release and clicks on it
 
-        self.browser.find_element_by_link_text('More info').click()
+        self.browser.find_element_by_link_text('More info...').click()
 
 
         # The specific page for the release is loaded up and the user can see the relevant info

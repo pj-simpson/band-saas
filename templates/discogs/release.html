@@ -1,9 +1,45 @@
 {% extends '_base.html' %}
 
+{% load thumbnail %}
+
 {% block title %}Discography{% endblock title %}
 
 {% block content %}
 
-  <h1>{{release.title}}</h1>
+<div class="container news-item-page-container">
+
+    <div class="jumbotron jumbotron-fluid news-item-headline">
+      <div class="container">
+        <h1 class="display-4">{{release.title}}</h1>
+      </div>
+    </div>
+
+    <!-- new item image logic begin -->
+
+    <div class="col">
+    {% if release.image|is_portrait %}
+        {% thumbnail release.image "200x300" as im %}
+            <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait Release Item Image">
+        {% endthumbnail %}
+    {% else %}
+        {% thumbnail release.image "300x200" as im %}
+            <img class="news-item-thumbnail" src="{{im.url}}" alt="Release News Item Image">
+        {% empty %}
+            <!-- handle no image logic here -->
+        {% endthumbnail %}
+    {%  endif %}
+
+    </div>
+
+    <!-- news item image logic end -->
+    <p class="release-date-paragraph">Release Date: {{ release.release_date }}</p>
+
+    <a href="{{ release.link }}" class="badge badge-dark">Bandcamp</a><br/>
+
+
+    {{ release.info|safe }}
+
+
+</div>
 
 {% endblock %}

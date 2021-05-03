@@ -9,6 +9,7 @@
     <title>{% block title %}Circuit Breaker{% endblock title %}</title>
     <link rel="stylesheet "href="{% static 'bootstrap/css/bootstrap.min.css' %}"/>
     <link rel="stylesheet "href="{% static 'css/base.css' %}"/>
+    <link rel="favicon icon" type="image/png" href="{% static 'favicon.ico' %}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@300&display=swap" rel="stylesheet">
 </head>
@@ -18,7 +19,9 @@
   <!-- Nav bar start -->
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-4">
-  <a class="navbar-brand" href="/">CB</a>
+  <a class="navbar-brand" href="/">
+      <img src="{% static 'logo.jpeg' %}" width="30" height="30" alt="">
+  </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>

@@ -14,21 +14,21 @@
       </div>
     </div>
     <!-- new item image logic begin -->
-                        <div class="col">
-                        {% if news_item.image|is_portrait %}
-                            {% thumbnail news_item.image "200x300" as im %}
-                                <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
-                            {% endthumbnail %}
-                        {% else %}
-                            {% thumbnail news_item.image "300x200" as im %}
-                                <img class="news-item-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
-                            {% empty %}
-                                <!-- handle no image logic here -->
-                            {% endthumbnail %}
+        <div class="col">
+        {% if news_item.image|is_portrait %}
+            {% thumbnail news_item.image "200x300" as im %}
+                <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
+            {% endthumbnail %}
+        {% else %}
+            {% thumbnail news_item.image "300x200" as im %}
+                <img class="news-item-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
+            {% empty %}
+                <!-- handle no image logic here -->
+            {% endthumbnail %}
 
-                        {%  endif %}
+        {%  endif %}
 
-                        </div>
+        </div>
         <!-- news item image logic end -->
 
     {{ news_item.content|safe }}
