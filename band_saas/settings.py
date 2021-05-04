@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "ckeditor_uploader",
     'sorl.thumbnail',
+    'storages',
 
     'discogs',
     'shop',
