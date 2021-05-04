@@ -114,6 +114,6 @@ media/
 # **/migrations/**
 # !**/migrations
 # !**/migrations/__init__.py
-/static
+
 .env
 functional_tests/screendumps

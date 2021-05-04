@@ -1,0 +1,90 @@
+body {
+    font-family: 'Chakra Petch', sans-serif !important;
+    background-color: #1d2124;
+    color: white;
+}
+
+.main-container {
+    margin-top: 1rem !important;
+}
+
+
+@media (min-width: 1200px) {
+    .main-container {
+    max-width: 1340px;
+}
+}
+
+.nav-link {
+    font-size: 1.25em;
+}
+
+a:link {
+  color: rgba(255,255,255,.5)
+}
+a:visited {
+  color: rgba(255,255,255,.5)
+}
+a:hover {
+  color: white;
+}
+
+
+
+#product-card-container {
+    margin-top: 2em;
+}
+
+#basket-detail-container {
+    margin-top: 2em;
+}
+
+#news-item-container-container {
+    margin-top: 2em;
+}
+
+#news-item-card {
+    margin-top: 1em;
+}
+
+#discography-container {
+    margin-top: 2em;
+}
+
+#product-card-item{
+    margin-top: 1em;
+}
+
+#basket_table {
+    margin-top: 1em;
+}
+
+.news-feed-thumbnail {
+float: right;
+}
+
+.news-item-thumbnail {
+    float: right;
+    border: 5px solid whitesmoke !important;
+
+}
+
+.new-card-footer-timestamp {
+    float: right;
+}
+
+.news-item-page-container {
+    margin-top: 2em;
+}
+
+.news-item-headline {
+    background: #7e8991  ;
+}
+
+.table {
+    color: white;
+}
+
+.release-date-paragraph {
+    text-decoration: underline whitesmoke;
+}
