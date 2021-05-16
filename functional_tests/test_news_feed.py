@@ -31,11 +31,6 @@ class TestDiscographyPage(FunctionalTest):
 
         self.browser.find_element_by_xpath('//*[@id="news-item-card"]/div[2]/a').click()
 
-        # TEST TEST TESTTEST TEST TESTTEST TEST TESTTEST TEST TESTTEST TEST TEST
-        # TEST# TEST# TEST
-
-
-
         # The specific page for the particular news item is loaded up and the user can see the relevant info
         self.confirm_element_after_navigation('h1','Headline 1')
 

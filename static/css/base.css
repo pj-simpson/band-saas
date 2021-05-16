@@ -88,3 +88,16 @@ float: right;
 .release-date-paragraph {
     text-decoration: underline whitesmoke;
 }
+
+.page-link{
+    background-color: unset;
+}
+
+.page-item:disabled {
+    background-color: pink;
+}
+
+#pagination-container {
+
+
+}

@@ -57,4 +57,51 @@
 
     <!-- News Cards End -->
 
+    <!-- Pagination Begin -->
+    <div class="container" id="pagination-container">
+        <ul class="pagination justify-content-center" id="news-pagination-list">
+        {% if news_items.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ news_items.previous_page_number }}">Previous</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+          </li>
+        {% endif %}
+
+        {% if news_items.number|add:'-4' > 1 %}
+            <li class="page-item"><a class="page-link" href="?page={{ news_items.number|add:'-5' }}">&hellip;</a></li>
+        {% endif %}
+
+        {% for i in news_items.paginator.page_range %}
+            {% if news_items.number == i %}
+                <li class="page-item active" aria-current="page">
+              <span class="page-link">
+                {{ i }}
+                <span class="sr-only">(current)</span>
+              </span>
+            </li>
+            {% elif i > news_items.number|add:'-5' and i < news_items.number|add:'5' %}
+                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+
+        {% if news_items.paginator.num_pages > news_items.number|add:'4' %}
+           <li class="page-item"><a class="page-link" href="?page={{ news_items.number|add:'5' }}">&hellip;</a></li>
+        {% endif %}
+
+        {% if news_items.has_next %}
+            <li class="page-item">
+            <a class="page-link" href="?page={{ news_items.next_page_number }}">Next</a>
+          </li>
+        {% else %}
+            <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+    <!-- Pagination End -->
+
 {% endblock content %}
