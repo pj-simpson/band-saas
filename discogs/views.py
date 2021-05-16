@@ -11,3 +11,7 @@ def discog_page_view(request):
 def release_page_view(request, slug:str):
     release = Release.objects.get(slug=slug)
     return render(request,"discogs/release.html",{'release':release, 'nav':'discog'})
+
+def sentry_healthcheck_view(request):
+    division_by_zero = 1 / 0
+    return render(request, "home.html",{'nav':'home'})

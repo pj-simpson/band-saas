@@ -5,12 +5,13 @@ from django.urls import path, include
 
 import os
 
-from discogs.views import home_page_view
+from discogs.views import home_page_view, sentry_healthcheck_view
 
 urlpatterns = [
     path('info/', include('django.contrib.flatpages.urls')),
     path('admin/', admin.site.urls),
     path('',home_page_view,name="home"),
+    path('sentry-healthcheck',sentry_healthcheck_view,name="sentry"),
     path('discog/',include("discogs.urls")),
     path('shop/',include("shop.urls")),
     path('news/',include("news.urls")),

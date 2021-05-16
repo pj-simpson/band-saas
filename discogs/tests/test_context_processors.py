@@ -1,8 +1,6 @@
 from django.test import TestCase
 from unittest.mock import patch
 
-
-
 class ContextProcessorTests(TestCase):
 
     @patch('discogs.context_processors.site_artist_name')
