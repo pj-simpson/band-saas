@@ -24,3 +24,6 @@ class Release(models.Model):
 
     def get_absolute_url(self):
         return reverse('release_page',kwargs={'slug':self.slug})
+
+    def __str__(self):
+        return self.title

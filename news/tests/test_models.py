@@ -144,3 +144,11 @@ class NewsItemsModelTest(TestCase):
         )
 
         self.assertEqual(news_item_1.get_absolute_url(), f'/news/{news_item_1.slug}/')
+
+    def test_str_respresentation(self):
+        news_item_1 = NewsItem.objects.create(
+            headline="Lorem ipsum dolor",
+            summary="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id ligula vitae purus t",
+            content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin varius enim eget velit ultrices semper sit amet non ligula. Aliquam hendrerit felis vehicula ultrices tincidunt",
+        )
+        self.assertEqual(news_item_1.headline,str(news_item_1))

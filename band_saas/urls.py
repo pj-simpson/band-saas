@@ -3,6 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+import os
+
 from discogs.views import home_page_view
 
 urlpatterns = [
@@ -19,3 +21,8 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+artist = os.environ.get("ARTIST_NAME",default='Artist')
+admin.site.site_header = f"{artist} Admin"
+admin.site.site_title = f"{artist} Admin Dashboard"
+admin.site.index_title = f"Welcome to {artist} Admin Dashboard"

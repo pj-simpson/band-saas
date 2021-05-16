@@ -63,5 +63,10 @@ class ReleaseModelTest(TestCase):
         release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01',image=get_image_file(),link='https://link.com')
         self.assertEqual(release1.get_absolute_url(),f'/discog/{release1.slug}/')
 
+    def test_str_respresentation(self):
+        release1 = Release.objects.create(title="a new title", info="blah", release_date='2020-02-01')
+        self.assertEqual(release1.title,str(release1))
+
+
 
 

@@ -20,3 +20,6 @@ class NewsItem(models.Model):
 
     def get_absolute_url(self):
         return reverse('news_item_page',kwargs={'slug':self.slug})
+
+    def __str__(self):
+        return self.headline
