@@ -11,12 +11,19 @@
     <div class="jumbotron jumbotron-fluid news-item-headline">
       <div class="container">
         <h1 class="display-4">{{release.title}}</h1>
+          <span class="badge badge-light">{{ release.release_date }}</span>
       </div>
+    </div>
+
+    <div class="row">
+
+    <div class="col-8">
+        {{ release.info|safe }}
     </div>
 
     <!-- new item image logic begin -->
 
-    <div class="col">
+    <div class="col news-feed-thumbnail-container">
     {% if release.image|is_portrait %}
         {% thumbnail release.image "200x300" as im %}
             <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait Release Item Image">
@@ -32,13 +39,13 @@
     </div>
 
     <!-- news item image logic end -->
-    <p class="release-date-paragraph">Release Date: {{ release.release_date }}</p>
-
-    <a href="{{ release.link }}" class="badge badge-dark">Bandcamp</a><br/>
 
 
-    {{ release.info|safe }}
 
+</div>
+    <div class='row'>
+        <div class="col"><a href="{{ release.link }}" class="badge badge-dark">Bandcamp</a></div>
+    </div>
 
 </div>
 

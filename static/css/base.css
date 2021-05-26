@@ -1,3 +1,5 @@
+/** {border:1px solid red}*/
+
 body {
     font-family: 'Chakra Petch', sans-serif !important;
     background-color: #1d2124;
@@ -63,10 +65,13 @@ a:hover {
 float: right;
 }
 
+.news-feed-thumbnail-container {
+    text-align: center;
+    display: block;
+}
 .news-item-thumbnail {
-    float: right;
     border: 5px solid whitesmoke !important;
-
+    vertical-align: middle;
 }
 
 .new-card-footer-timestamp {

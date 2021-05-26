@@ -13,8 +13,14 @@
         <h1 class="display-4">{{news_item.headline}}</h1>
       </div>
     </div>
+
+<div class="row">
+
+<div class="col-8">
+    {{ news_item.content|safe }}
+</div>
     <!-- new item image logic begin -->
-        <div class="col">
+        <div class="col news-feed-thumbnail-container">
         {% if news_item.image|is_portrait %}
             {% thumbnail news_item.image "200x300" as im %}
                 <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
@@ -30,11 +36,13 @@
 
         </div>
         <!-- news item image logic end -->
+</div>
 
-    {{ news_item.content|safe }}
+<div class='row'>
+    <div class="col"><span class="badge badge-light">{{ news_item.created }}</span></div>
+</div>
 
 
-    <span class="badge badge-light">{{ news_item.created }}</span>
 </div>
 
 {% endblock %}
