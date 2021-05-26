@@ -14,11 +14,14 @@
       </div>
     </div>
 
-<div class="row">
+    <div class="row">
 
-<div class="col-8">
-    {{ news_item.content|safe }}
-</div>
+    <!-- News Article Content -->
+
+    <div class="col-8">
+        {{ news_item.content|safe }}
+    </div>
+
     <!-- new item image logic begin -->
         <div class="col news-feed-thumbnail-container">
         {% if news_item.image|is_portrait %}
@@ -36,11 +39,12 @@
 
         </div>
         <!-- news item image logic end -->
-</div>
+    </div>
 
-<div class='row'>
-    <div class="col"><span class="badge badge-light">{{ news_item.created }}</span></div>
-</div>
+    <!-- Date and time stamp badge -->
+    <div class='row'>
+        <div class="col"><span class="badge badge-light">{{ news_item.created }}</span></div>
+    </div>
 
 
 </div>
