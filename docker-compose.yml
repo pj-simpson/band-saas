@@ -2,6 +2,9 @@ version: '3.7'
 
 services:
 
+  redis:
+    image: redis:5-alpine
+
   django:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -18,3 +21,28 @@ services:
     image: selenium/standalone-chrome-debug:latest
     ports:
       - "4444:4444"
+
+  celery:
+    build: .
+    command: python manage.py celery_worker
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - django
+    env_file:
+      - .env
+
+  flower:
+    build: .
+    command:  flower -A band_saas --port=5555 --broker=redis://redis:6379/0
+    ports:
+      - 5555:5555
+    volumes:
+      - .:/code
+    depends_on:
+      - redis
+      - celery
+    env_file:
+      - .env
+
