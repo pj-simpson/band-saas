@@ -6,14 +6,16 @@ services:
     image: redis:5-alpine
 
   django:
-    build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    build:
+      context: .
+      dockerfile: ./docker/local/Dockerfile
+    command: /start
     volumes:
       - .:/code
     ports:
       - "8000:8000"
     depends_on:
-      - selenium
+      - redis
     env_file:
       - .env
 
@@ -23,26 +25,28 @@ services:
       - "4444:4444"
 
   celery:
-    build: .
-    command: python manage.py celery_worker
+    build:
+      context: .
+      dockerfile: ./docker/local/Dockerfile
+    command: /start-celeryworker
     volumes:
       - .:/code
     depends_on:
       - redis
-      - django
     env_file:
       - .env
 
   flower:
-    build: .
-    command:  flower -A band_saas --port=5555 --broker=redis://redis:6379/0
+    build:
+      context: .
+      dockerfile: ./docker/local/Dockerfile
+    command:  /start-flower
     ports:
       - 5555:5555
     volumes:
       - .:/code
     depends_on:
       - redis
-      - celery
     env_file:
       - .env
 
