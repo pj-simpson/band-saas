@@ -1,5 +1,6 @@
 import braintree
 from django.conf import settings
+from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 
@@ -7,6 +8,7 @@ from shop.cart import Cart
 from shop.forms import ItemQuantityForm, OrderForm
 
 from .models import Order, OrderItem, Product
+from .tasks import successful_order_send_email
 
 gateway = braintree.BraintreeGateway(settings.BRAINTREE_CONF)
 
@@ -83,6 +85,7 @@ def order_form_view(request):
 # PAYMENT VIEWS
 
 
+@transaction.atomic
 def payment_process_view(request):
     order_id = request.session.get("order_id")
     order = get_object_or_404(Order, id=order_id)
@@ -101,6 +104,7 @@ def payment_process_view(request):
             order.paid = True
             order.braintree_id = result.transaction.id
             order.save()
+            transaction.on_commit(lambda: successful_order_send_email.delay(order.id))
             return redirect("payment_done")
         else:
             return redirect("payment_error")

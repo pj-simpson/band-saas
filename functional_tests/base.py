@@ -34,8 +34,9 @@ class FunctionalTest(StaticLiveServerTestCase):
 
     def select_quantity_dropdown_add_to_basket(self, quantity, id):
         select = Select(self.browser.find_element_by_id(f"{id}"))
-        select.select_by_value(f"{quantity}")
-        self.browser.find_element_by_xpath("/html/body/div/form/input[1]").click()
+        self.browser.find_element_by_xpath(
+            "/html/body/div/div/div[2]/div/form/button"
+        ).click()
 
     def confirm_element_after_navigation(self, tag, text):
         header = WebDriverWait(self.browser, timeout=4).until(
