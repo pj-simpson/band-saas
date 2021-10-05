@@ -40,9 +40,7 @@
         <li class="nav-item {% if nav == 'discog' %}active{% endif %}">
             <a class="nav-link" href="{% url 'discography' %}">Discog</a>
         </li>
-        <li class="nav-item {% if nav == 'shop' %}active{% endif %}">
-            <a class="nav-link" href="{% url 'shop_home' %}">Shop</a>
-        </li>
+
 
         <!--flat pages start -->
             {% for page in flatpages %}

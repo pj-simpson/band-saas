@@ -13,7 +13,6 @@ urlpatterns = [
     path("", home_page_view, name="home"),
     path("sentry-healthcheck", sentry_healthcheck_view, name="sentry"),
     path("discog/", include("discogs.urls")),
-    path("shop/", include("shop.urls")),
     path("news/", include("news.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
 ]

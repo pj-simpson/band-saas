@@ -2,9 +2,6 @@ version: '3.7'
 
 services:
 
-  redis:
-    image: redis:5-alpine
-
   django:
     build:
       context: .
@@ -23,30 +20,3 @@ services:
     image: selenium/standalone-chrome-debug:latest
     ports:
       - "4444:4444"
-
-  celery:
-    build:
-      context: .
-      dockerfile: ./docker/local/Dockerfile
-    command: /start-celeryworker
-    volumes:
-      - .:/code
-    depends_on:
-      - redis
-    env_file:
-      - .env
-
-  flower:
-    build:
-      context: .
-      dockerfile: ./docker/local/Dockerfile
-    command:  /start-flower
-    ports:
-      - 5555:5555
-    volumes:
-      - .:/code
-    depends_on:
-      - redis
-    env_file:
-      - .env
-
