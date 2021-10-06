@@ -24,11 +24,3 @@ COPY ../.. /code/
 COPY ./docker/local/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
-
-COPY ./docker/local/celery/worker/start /start-celeryworker
-RUN sed -i 's/\r$//g' /start-celeryworker
-RUN chmod +x /start-celeryworker
-
-COPY ./docker/local/celery/flower/start /start-flower
-RUN sed -i 's/\r$//g' /start-flower
-RUN chmod +x /start-flower

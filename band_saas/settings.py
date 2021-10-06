@@ -90,26 +90,25 @@ WSGI_APPLICATION = "band_saas.wsgi.application"
 DATABASE_URL = os.getenv("DATABASE_URL", None)
 
 
-if not DATABASE_URL:
+if not DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
+            "NAME": os.environ.get("SQL_DATABASE", 'db'),
+            "USER": os.environ.get("SQL_USER", "user"),
+            "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
+            "HOST": os.environ.get("SQL_HOST", "localhost"),
+            "PORT": os.environ.get("SQL_PORT", "5432"),
+        }
+    }
+else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
             "NAME": BASE_DIR / "db.sqlite3",
         }
     }
-else:
-    db_info = urlparse(DATABASE_URL)
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": "db",
-            "USER": db_info.username,
-            "PASSWORD": db_info.password,
-            "HOST": db_info.hostname,
-            "PORT": db_info.port,
-            "OPTIONS": {"sslmode": "require"},
-        }
-    }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

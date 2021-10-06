@@ -18,32 +18,35 @@
 
     <!-- News Article Content -->
 
+    <!-- new item image logic begin -->
+    <div class="col news-feed-thumbnail-container">
+    {% if news_item.image|is_portrait %}
+        {% thumbnail news_item.image "200x300" as im %}
+            <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
+        {% endthumbnail %}
+    {% else %}
+        {% thumbnail news_item.image "300x200" as im %}
+            <img class="news-item-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
+        {% empty %}
+            <!-- handle no image logic here -->
+        {% endthumbnail %}
+
+    {%  endif %}
+
+    </div>
+    <!-- news item image logic end -->
+
+
     <div class="col-8">
         {{ news_item.content|safe }}
     </div>
 
-    <!-- new item image logic begin -->
-        <div class="col news-feed-thumbnail-container">
-        {% if news_item.image|is_portrait %}
-            {% thumbnail news_item.image "200x300" as im %}
-                <img class="news-item-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
-            {% endthumbnail %}
-        {% else %}
-            {% thumbnail news_item.image "300x200" as im %}
-                <img class="news-item-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
-            {% empty %}
-                <!-- handle no image logic here -->
-            {% endthumbnail %}
 
-        {%  endif %}
-
-        </div>
-        <!-- news item image logic end -->
     </div>
 
     <!-- Date and time stamp badge -->
     <div class='row'>
-        <div class="col"><span class="badge badge-light">{{ news_item.created }}</span></div>
+        <div class="col"><h3><span class="news-item-timestamp badge badge-secondary">{{ news_item.created }}</span></h3></div>
     </div>
 
 

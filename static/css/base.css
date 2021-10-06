@@ -2,7 +2,7 @@
 
 body {
     font-family: 'Chakra Petch', sans-serif !important;
-    background-color: #1d2124;
+    background-color: black;
     color: white;
 }
 
@@ -17,20 +17,18 @@ body {
 }
 }
 
+.release-copy {
+    margin-bottom: 1em;
+}
 .nav-link {
     font-size: 1.25em;
 }
 
-a:link {
-  color: rgba(255,255,255,.5)
-}
-a:visited {
-  color: rgba(255,255,255,.5)
-}
-a:hover {
-  color: white;
-}
+a:link { color: white; }
+a:visited { color: white; }
+a:hover { color: #63d0d4; }
 
+.navbar-dark .navbar-nav .nav-link:hover {color:#63d0d4; }
 
 
 #product-card-container {
@@ -47,6 +45,12 @@ a:hover {
 
 #news-item-card {
     margin-top: 1em;
+    border-color: white;
+    background-color: black;
+}
+
+.card-body{
+    background-color: black;
 }
 
 #discography-container {
@@ -70,8 +74,8 @@ float: right;
     display: block;
 }
 .news-item-thumbnail {
-    border: 5px solid whitesmoke !important;
     vertical-align: middle;
+    margin-bottom: 1em;
 }
 
 .new-card-footer-timestamp {
@@ -81,9 +85,23 @@ float: right;
 .news-item-page-container {
     margin-top: 2em;
 }
+.page-item.active .page-link{
+    background-color:#63d0d4;
+    border-color:#63d0d4;
+}
 
+.page-item:disabled{
+    background-color: #95999c;
+}
 .news-item-headline {
-    background: #7e8991  ;
+    background: black;
+    border-style: solid;
+    border-color: white;
+    border-width: thin;
+}
+
+.news-item-timestamp {
+    float: right;
 }
 
 .table {
