@@ -7,7 +7,7 @@ RUN mkdir /code
 
 WORKDIR /code
 
-COPY ../../requirements-dev.txt /code/
+COPY ../../requirements.txt /code/
 
 RUN \
  apk add --no-cache postgresql-libs && \
