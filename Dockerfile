@@ -7,7 +7,7 @@ RUN mkdir /code
 
 WORKDIR /code
 
-COPY ../../requirements.txt /code/
+COPY requirements.txt /code/
 
 RUN \
  apk add --no-cache postgresql-libs && \
@@ -25,4 +25,4 @@ COPY ./docker/local/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
-CMD ["sh", "./docker/production/start.sh"]
+CMD ["sh", "./start.sh"]
