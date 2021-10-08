@@ -8,7 +8,7 @@ def home_page_view(request):
 
 
 def discog_page_view(request):
-    releases = Release.objects.all()
+    releases = Release.objects.all().order_by("release_date")
     return render(
         request, "discogs/discography.html", {"releases": releases, "nav": "discog"}
     )
