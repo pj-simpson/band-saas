@@ -243,7 +243,7 @@ if not DEBUG:
 
 USE_S3 = os.environ.get("USE_S3")
 
-if USE_S3 == "True":
+if USE_S3:
     # aws settings
     AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
     AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
