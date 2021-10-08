@@ -28,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY", default="change me")
 
 DEBUG = int(os.environ.get("DEBUG", default=0))
+USE_S3 = int(os.environ.get("USE_S3", default=0))
 
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
@@ -241,7 +242,6 @@ if not DEBUG:
     SECURE_REFERRER_POLICY = "same-origin"
     STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-USE_S3 = os.environ.get("USE_S3")
 
 if USE_S3:
     # aws settings
