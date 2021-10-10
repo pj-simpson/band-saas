@@ -1,1 +1,9 @@
 {% extends '_base.html' %}
+{% load solo_tags %}
+
+{% block content %}
+    <div class="container news-item-page-container">
+        {% get_solo 'discogs.HomePage' as home_page %}
+        {{ home_page.page_info|safe}}
+    </div>
+{% endblock %}

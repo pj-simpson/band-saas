@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "storages",
     "discogs",
     "news",
+    "solo",
 ]
 
 AUTH_USER_MODEL = "discogs.CustomUser"

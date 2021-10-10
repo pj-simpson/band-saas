@@ -5,7 +5,10 @@ from django.contrib.flatpages.models import FlatPage
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .models import Release
+from .models import Release,HomePage
+
+from solo.admin import SingletonModelAdmin
+
 
 
 class ReleaseAdmin(admin.ModelAdmin):
@@ -18,6 +21,7 @@ class FlatPageAdmin(FlatPageAdmin):
 
 
 admin.site.register(Release, ReleaseAdmin)
+admin.site.register(HomePage,SingletonModelAdmin)
 
 # workaround to get the flatpages app to use CKeditor
 admin.site.unregister(FlatPage)

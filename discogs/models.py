@@ -4,6 +4,11 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.urls import reverse
 
+from solo.models import SingletonModel
+
+
+class HomePage(SingletonModel):
+    page_info = RichTextUploadingField()
 
 class CustomUser(AbstractUser):
     pass
