@@ -1,0 +1,5 @@
+TODO  - discog list page: infinite scroll + no images
+     - cope table format of current flatpage
+     - flatpage url - dont append 'info'
+     - theme : take away all grey
+     - creating a soundart object (list displayed the same as discog, but with clickable detail page)
