@@ -8,9 +8,18 @@ def news_feed_view(request):
     news_items = NewsItem.objects.all().order_by("-created")
     paginator = Paginator(news_items, 5)
     page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+    page_obj = paginator.get_page(1)
     return render(
         request, "news/news_feed.html", {"news_items": page_obj, "nav": "news"}
+    )
+
+def news_feed_view_fetch_more(request):
+    news_items = NewsItem.objects.all().order_by("-created")
+    paginator = Paginator(news_items, 5)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+    return render(
+        request, "news/news_feed_partial.html", {"news_items": page_obj, "nav": "news"}
     )
 
 

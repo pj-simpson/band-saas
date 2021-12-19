@@ -3,18 +3,23 @@ import os
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
+from django.contrib.flatpages import views
+
 
 from discogs.views import home_page_view, sentry_healthcheck_view
 
 urlpatterns = [
-    path("info/", include("django.contrib.flatpages.urls")),
     path("admin/", admin.site.urls),
     path("", home_page_view, name="home"),
     path("sentry-healthcheck", sentry_healthcheck_view, name="sentry"),
     path("discog/", include("discogs.urls")),
     path("news/", include("news.urls")),
     path("ckeditor/", include("ckeditor_uploader.urls")),
+]
+
+urlpatterns += [
+    re_path(r'^(?P<url>.*/)$', views.flatpage),
 ]
 
 

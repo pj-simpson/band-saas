@@ -11,97 +11,17 @@
 
     <div class="container" id="news-item-container">
 
-    {% for item in news_items %}
+        {% include "news/news_feed_partial.html" %}
 
-        <div class="card text-white bg-dark mb-3" id="news-item-card">
-            <div class="card-body">
-                <div class="container">
-                    <div class="row justify-content-between">
 
-                        <div class="col">
-                            <a href="{{ item.get_absolute_url }}">
-                                <h4 class="card-title">{{ item.headline }}</h4>
-                            </a>
-                        </div>
-
-                    <!-- new item thumbnail logic begin -->
-                        <div class="col">
-                        {% if item.image|is_portrait %}
-                            {% thumbnail item.image "200x300" as im %}
-                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Portrait News Item Image">
-                            {% endthumbnail %}
-                        {% else %}
-                            {% thumbnail item.image "300x200" as im %}
-                                <img class="news-feed-thumbnail" src="{{im.url}}" alt="Landscape News Item Image">
-                            {% empty %}
-                                <!-- handle no image logic here -->
-                            {% endthumbnail %}
-
-                        {%  endif %}
-
-                        </div>
-                    <!-- news item thumbnail logic end -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="card-footer">
-                <a href="{{ item.get_absolute_url }}">{{item.summary}}...</a>
-                <span class="badge badge-dark new-card-footer-timestamp">{{item.created}}</span>
-            </div>
+        <div id="news-load-container">
+            <div id="news-load-indicator" class="spinner-grow htmx-indicator" role="status"></div>
         </div>
 
-    {% endfor %}
 
     </div>
+
 
     <!-- News Cards End -->
-
-    <!-- Pagination Begin -->
-    <div class="container" id="pagination-container">
-        <ul class="pagination justify-content-center" id="news-pagination-list">
-        {% if news_items.has_previous %}
-            <li class="page-item">
-                <a class="page-link" href="?page={{ news_items.previous_page_number }}">Previous</a>
-            </li>
-        {% else %}
-            <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-          </li>
-        {% endif %}
-
-        {% if news_items.number|add:'-4' > 1 %}
-            <li class="page-item"><a class="page-link" href="?page={{ news_items.number|add:'-5' }}">&hellip;</a></li>
-        {% endif %}
-
-        {% for i in news_items.paginator.page_range %}
-            {% if news_items.number == i %}
-                <li class="page-item active" aria-current="page">
-              <span class="page-link">
-                {{ i }}
-                <span class="sr-only">(current)</span>
-              </span>
-            </li>
-            {% elif i > news_items.number|add:'-5' and i < news_items.number|add:'5' %}
-                 <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
-            {% endif %}
-        {% endfor %}
-
-        {% if news_items.paginator.num_pages > news_items.number|add:'4' %}
-           <li class="page-item"><a class="page-link" href="?page={{ news_items.number|add:'5' }}">&hellip;</a></li>
-        {% endif %}
-
-        {% if news_items.has_next %}
-            <li class="page-item">
-            <a class="page-link" href="?page={{ news_items.next_page_number }}">Next</a>
-          </li>
-        {% else %}
-            <li class="page-item disabled">
-            <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Next</a>
-          </li>
-        {% endif %}
-      </ul>
-    </div>
-    <!-- Pagination End -->
 
 {% endblock content %}
