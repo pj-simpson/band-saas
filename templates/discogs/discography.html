@@ -9,36 +9,47 @@
     <div class="container" id="discography-container">
         <!-- Release Table Start -->
 
-        <table class="table table-bordered" id="discog_table">
-            <thead>
+        {% regroup releases by project as project_discog %}
+
+        {% for project in project_discog %}
+            <h4>{{ project.grouper }}</h4>
+
+            <table class="table table-bordered" id="discog_table">
+                <thead>
                 <tr>
-                    <th scope="col">Front Cover</th>
+                    <th scope="col">Year</th>
                     <th scope="col">Title</th>
-                    <th scope="col" colspan="2">Release Date</th>
+                    <th scope="col" >Project</th>
+                    <th scope="col">Label</th>
+                    <th scope="col">Format</th>
                 </tr>
-            </thead>
-            {% for release in releases %}
-                <tr>
-                    <td>
-                        {% if release.image|is_portrait %}
-                            {% thumbnail release.image "200x300" as im %}
-                                <img class="release-thumbnail" src="{{im.url}}" alt="Portrait Release Image">
-                            {% endthumbnail %}
-                        {% else %}
-                            {% thumbnail release.image "300x200" as im %}
-                                <img class="release-thumbnail" src="{{im.url}}" alt="Landscape Release Image">
-                            {% empty %}
-                                <!-- handle no image logic here -->
-                            {% endthumbnail %}
-                        {%  endif %}
-                    </td>
-                    <td><a href="{{ release.get_absolute_url }}">{{ release.title }}</a></td>
-                    <td>{{ release.release_date }}</td>
-                    <td><a href="{{ release.get_absolute_url }}">More info...</a></td>
-                </tr>
-            {% endfor %}
-        </table>
+                </thead>
+                {% for release in project.list %}
+                    <tr>
+                        <td>{{ release.release_date|date:"Y"}}</td>
+                        <td><a href="{{ release.link }}">{{ release.title }}</a></td>
+                        <td>{{ release.project }}</td>
+                        <td></td>
+                        <td></td>
+
+                    </tr>
+                {% endfor %}
+
+            </table>
+
+
+
+            </h4>
+        {% endfor %}
+
+
 
         <!-- Release Table End -->
     </div>
+
+
+
+
+
+
 {% endblock content %}

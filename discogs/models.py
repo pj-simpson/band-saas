@@ -13,6 +13,12 @@ class HomePage(SingletonModel):
 class CustomUser(AbstractUser):
     pass
 
+class Project(models.Model):
+    name = models.CharField(blank=False, max_length=200)
+
+    def __str__(self):
+        return self.name
+
 
 class Release(models.Model):
     title = models.CharField(blank=False, max_length=200)
@@ -21,6 +27,7 @@ class Release(models.Model):
     slug = models.SlugField(null=True, unique=True)
     image = models.ImageField(upload_to="discography_images/", blank=True)
     link = models.URLField(blank=True)
+    project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -32,3 +39,5 @@ class Release(models.Model):
 
     def __str__(self):
         return self.title
+
+
