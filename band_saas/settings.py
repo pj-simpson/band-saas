@@ -166,21 +166,6 @@ sentry_sdk.init(
     send_default_pii=True,
 )
 
-CART_SESSION_ID = "shopping_cart"
-
-
-BRAINTREE_MERCHANT_ID = os.environ.get("BRAINTREE_MERCHANT_ID")
-BRAINTREE_PUBLIC_KEY = os.environ.get("BRAINTREE_PUBLIC_KEY")
-BRAINTREE_PRIVATE_KEY = os.environ.get("BRAINTREE_PRIVATE_KEY")
-import braintree
-
-BRAINTREE_CONF = braintree.Configuration(
-    braintree.Environment.Sandbox,
-    BRAINTREE_MERCHANT_ID,
-    BRAINTREE_PUBLIC_KEY,
-    BRAINTREE_PRIVATE_KEY,
-)
-
 
 CKEDITOR_JQUERY_URL = "https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"
 
