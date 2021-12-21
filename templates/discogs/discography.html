@@ -14,9 +14,10 @@
         {% for project in project_discog %}
             <h4>{{ project.grouper }}</h4>
 
+            <div class="table-responsive">
             <table class="table table-bordered" id="discog_table">
                 <thead>
-                <tr>
+                <tr style="color:{{ project.grouper.table_header_color }};">
                     <th scope="col">Year</th>
                     <th scope="col">Title</th>
                     <th scope="col" >Project</th>
@@ -29,17 +30,18 @@
                         <td>{{ release.release_date|date:"Y"}}</td>
                         <td><a href="{{ release.link }}">{{ release.title }}</a></td>
                         <td>{{ release.project }}</td>
-                        <td></td>
-                        <td></td>
+                        <td>{{ release.label }}</td>
+                        <td>{{ release.format }}</td>
 
                     </tr>
                 {% endfor %}
 
             </table>
+            </div>
 
 
 
-            </h4>
+
         {% endfor %}
 
 

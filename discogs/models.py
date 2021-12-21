@@ -15,6 +15,13 @@ class CustomUser(AbstractUser):
 
 class Project(models.Model):
     name = models.CharField(blank=False, max_length=200)
+    table_header_color = models.CharField(max_length=8)
+
+    def __str__(self):
+        return self.name
+
+class Format(models.Model):
+    name = models.CharField(blank=False, max_length=200)
 
     def __str__(self):
         return self.name
@@ -28,6 +35,8 @@ class Release(models.Model):
     image = models.ImageField(upload_to="discography_images/", blank=True)
     link = models.URLField(blank=True)
     project = models.ForeignKey(Project,on_delete=models.CASCADE,null=True)
+    format = models.ForeignKey(Format,on_delete=models.CASCADE,null=True)
+    label = models.CharField(blank=True, default='#FFFFFF',max_length=200)
 
     def save(self, *args, **kwargs):
         if not self.slug:
