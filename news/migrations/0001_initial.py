@@ -8,20 +8,27 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='NewsItem',
+            name="NewsItem",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('headline', models.CharField(max_length=200)),
-                ('summary', models.CharField(max_length=400)),
-                ('content', ckeditor_uploader.fields.RichTextUploadingField()),
-                ('created', models.DateTimeField(auto_now_add=True)),
-                ('slug', models.SlugField(null=True, unique=True)),
-                ('image', models.ImageField(blank=True, upload_to='news_item_images/')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("headline", models.CharField(max_length=200)),
+                ("summary", models.CharField(max_length=400)),
+                ("content", ckeditor_uploader.fields.RichTextUploadingField()),
+                ("created", models.DateTimeField(auto_now_add=True)),
+                ("slug", models.SlugField(null=True, unique=True)),
+                ("image", models.ImageField(blank=True, upload_to="news_item_images/")),
             ],
         ),
     ]

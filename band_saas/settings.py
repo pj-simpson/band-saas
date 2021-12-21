@@ -95,8 +95,10 @@ DATABASE_URL = os.getenv("DATABASE_URL", None)
 if not DEBUG:
     DATABASES = {
         "default": {
-            "ENGINE": os.environ.get("SQL_ENGINE", "django.db.backends.postgresql_psycopg2"),
-            "NAME": os.environ.get("SQL_DATABASE", 'db'),
+            "ENGINE": os.environ.get(
+                "SQL_ENGINE", "django.db.backends.postgresql_psycopg2"
+            ),
+            "NAME": os.environ.get("SQL_DATABASE", "db"),
             "USER": os.environ.get("SQL_USER", "user"),
             "PASSWORD": os.environ.get("SQL_PASSWORD", "password"),
             "HOST": os.environ.get("SQL_HOST", "localhost"),
@@ -246,6 +248,3 @@ if USE_S3:
 else:
     MEDIA_ROOT = os.path.join(BASE_DIR, "media")
     MEDIA_URL = "/media/"
-
-
-

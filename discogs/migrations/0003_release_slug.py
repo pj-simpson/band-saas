@@ -6,14 +6,14 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0002_release'),
+        ("discogs", "0002_release"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='release',
-            name='slug',
-            field=models.SlugField(default='default', unique=True),
+            model_name="release",
+            name="slug",
+            field=models.SlugField(default="default", unique=True),
             preserve_default=False,
         ),
     ]

@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0004_auto_20210227_1749'),
+        ("discogs", "0004_auto_20210227_1749"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='release',
-            name='image',
-            field=models.ImageField(blank=True, upload_to='discography_images/'),
+            model_name="release",
+            name="image",
+            field=models.ImageField(blank=True, upload_to="discography_images/"),
         ),
         migrations.AddField(
-            model_name='release',
-            name='link',
+            model_name="release",
+            name="link",
             field=models.URLField(blank=True),
         ),
     ]

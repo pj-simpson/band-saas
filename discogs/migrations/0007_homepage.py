@@ -7,18 +7,26 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0006_auto_20210503_1238'),
+        ("discogs", "0006_auto_20210503_1238"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='HomePage',
+            name="HomePage",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('page_info', ckeditor_uploader.fields.RichTextUploadingField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("page_info", ckeditor_uploader.fields.RichTextUploadingField()),
             ],
             options={
-                'abstract': False,
+                "abstract": False,
             },
         ),
     ]

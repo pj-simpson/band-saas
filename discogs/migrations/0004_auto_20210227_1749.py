@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0003_release_slug'),
+        ("discogs", "0003_release_slug"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='release',
-            name='slug',
+            model_name="release",
+            name="slug",
             field=models.SlugField(null=True, unique=True),
         ),
     ]

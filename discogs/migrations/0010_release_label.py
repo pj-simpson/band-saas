@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0009_auto_20211221_1736'),
+        ("discogs", "0009_auto_20211221_1736"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='release',
-            name='label',
+            model_name="release",
+            name="label",
             field=models.CharField(blank=True, max_length=200),
         ),
     ]

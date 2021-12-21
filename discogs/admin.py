@@ -5,21 +5,23 @@ from django.contrib.flatpages.models import FlatPage
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
-from .models import Release,HomePage, Project, Format
+from .models import Release, HomePage, Project, Format
 
 from solo.admin import SingletonModelAdmin
-
 
 
 class ReleaseAdmin(admin.ModelAdmin):
 
     prepopulated_fields = {"slug": ("title",)}
 
+
 class ProjectAdmin(admin.ModelAdmin):
     pass
 
+
 class FormatAdmin(admin.ModelAdmin):
     pass
+
 
 class FlatPageAdmin(FlatPageAdmin):
     formfield_overrides = {models.TextField: {"widget": CKEditorWidget}}

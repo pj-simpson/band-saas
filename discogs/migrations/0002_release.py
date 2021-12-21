@@ -6,17 +6,25 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0001_initial'),
+        ("discogs", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Release',
+            name="Release",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('info', models.TextField()),
-                ('release_date', models.DateField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("info", models.TextField()),
+                ("release_date", models.DateField()),
             ],
         ),
     ]

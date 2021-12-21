@@ -11,7 +11,9 @@
 
         {% regroup releases by project as project_discog %}
 
+
         {% for project in project_discog %}
+
             <h4>{{ project.grouper }}</h4>
 
             <div class="table-responsive">
@@ -27,11 +29,11 @@
                 </thead>
                 {% for release in project.list %}
                     <tr>
-                        <td>{{ release.release_date|date:"Y"}}</td>
+                        <td style="color:{{ project.grouper.table_header_color }};">{{ release.release_date|date:"Y"}}</td>
                         <td><a href="{{ release.link }}">{{ release.title }}</a></td>
-                        <td>{{ release.project }}</td>
-                        <td>{{ release.label }}</td>
-                        <td>{{ release.format }}</td>
+                        <td style="color:{{ project.grouper.table_header_color }};">{{ release.project }}</td>
+                        <td style="color:{{ project.grouper.table_header_color }};">{{ release.label }}</td>
+                        <td style="color:{{ project.grouper.table_header_color }};" >{{ release.format }}</td>
 
                     </tr>
                 {% endfor %}

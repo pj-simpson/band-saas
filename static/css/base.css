@@ -35,7 +35,7 @@ a:hover { color: #63d0d4; }
 }
 
 .navbar {
-    border: 0.25em solid white !important;
+    border: 0.25em black !important;
 }
 
 
@@ -67,6 +67,10 @@ a:hover { color: #63d0d4; }
 
 #product-card-item{
     margin-top: 1em;
+}
+
+#discog_table {
+    margin-bottom: 3em !important;
 }
 
 #basket_table {

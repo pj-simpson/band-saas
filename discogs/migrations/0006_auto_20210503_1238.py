@@ -7,13 +7,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('discogs', '0005_auto_20210503_0938'),
+        ("discogs", "0005_auto_20210503_0938"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='release',
-            name='info',
+            model_name="release",
+            name="info",
             field=ckeditor_uploader.fields.RichTextUploadingField(),
         ),
     ]

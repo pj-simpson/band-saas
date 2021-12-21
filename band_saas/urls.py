@@ -19,7 +19,7 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    re_path(r'^(?P<url>.*/)$', views.flatpage),
+    re_path(r"^(?P<url>.*/)$", views.flatpage),
 ]
 
 

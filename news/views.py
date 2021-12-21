@@ -13,6 +13,7 @@ def news_feed_view(request):
         request, "news/news_feed.html", {"news_items": page_obj, "nav": "news"}
     )
 
+
 def news_feed_view_fetch_more(request):
     news_items = NewsItem.objects.all().order_by("-created")
     paginator = Paginator(news_items, 5)
